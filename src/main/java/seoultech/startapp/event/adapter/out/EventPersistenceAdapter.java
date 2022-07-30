@@ -14,7 +14,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class EventPersistenceAdapter implements LoadEventPort, SaveEventPort {
-    //testCode 때문에 public으로 열어둠
     private final JpaEventRepository jpaEventRepository;
     private final EventMapper eventMapper;
     @Override
