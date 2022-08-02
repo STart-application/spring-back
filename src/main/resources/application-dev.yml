@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://startapp-dev-mysql.cqayhmhhxlsr.ap-northeast-2.rds.amazonaws.com:13306/startappdev?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: startappdev!
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: true
+  redis:
+    host: startapp-dev-redis.vozhy4.ng.0001.apn2.cache.amazonaws.com
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 0
+    password:
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org:
+      springframework:
+        web:
+          filter: DEBUG
+jwt:
+  access_key: jwtAccessTokenSecretKeyForLocaljwtAccessTokenSecretKeyForLocal
+  refresh_key: jwtRefreshTokenSecretKeyForLocaljwtRefreshTokenSecretKeyForLocal
+  access_expired_min: 30
+  refresh_expired_day: 60
