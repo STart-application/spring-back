@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://startapp-prod-db.cqayhmhhxlsr.ap-northeast-2.rds.amazonaws.com:3306/startappdb?characterEncoding=UTF-8&useLegacyDatetimeCode=false
+    username: startapp
+    password: startappadmin1!
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    properties:
+      hibernate:
+        format_sql: true
+  redis:
+    host: redis-prod.vozhy4.ng.0001.apn2.cache.amazonaws.com:6379
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 0
+    password:
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 20MB
+
+sms:
+  access_key: db3iZWwZqYTOCaXZmYuG
+  secret_key: LDufnAjzh5W5ErHCgfG1essP6hgaQPKfIsR9WHkG
+  service_id: ncp:sms:kr:284549025740:start_app
+  sender_no: "01054583928"
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org:
+      springframework:
+        web:
+          filter: DEBUG
+
+slack:
+  token: xoxb-3670725335574-3953069976947-q0q0ExzZt8hUxjwDC4bPklHa
+  student_card_channel: "#local_student_card_request"
+  webhook_url: "https://hooks.slack.com/services/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"
+
+
+jwt:
+  access_key: jwtAccessTokenSecretKeyForLocaljwtAccessTokenSecretKeyForLocal
+  refresh_key: jwtRefreshTokenSecretKeyForLocaljwtRefreshTokenSecretKeyForLocal
+  access_expired_min: 30
+  refresh_expired_day: 60
+
+s3:
+  access_key: AKIAUVEJWKVM2WGQR42L
+  secret_key: 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
+  bucket: devstartappbucket
+  region: ap-northeast-2
+  bucket_url: https://devstartappbucket.s3.ap-northeast-2.amazonaws.com/
