@@ -9,23 +9,23 @@ public class StampResponse {
 
   private Long stampId;
   private Long memberId;
-  private Boolean exhibition;
-  private Boolean ground;
-  private Boolean fleamarket;
+  private Boolean game; //exhibition -> game
+  private Boolean yard; // ground -> yard
+  private Boolean stage; // fleamearket -> stage
   private Boolean bungeobang;
-  private Boolean sangsang;
+  private Boolean photo; // sangsang -> photo
   private Boolean isPrized;
 
   @Builder
-  public StampResponse(Long stampId, Long memberId, Boolean exhibition, Boolean ground,
-      Boolean fleamarket, Boolean bungeobang, Boolean sangsang , Boolean isPrized) {
+  public StampResponse(Long stampId, Long memberId, Boolean game, Boolean yard,
+      Boolean stage, Boolean bungeobang, Boolean photo , Boolean isPrized) {
     this.stampId = stampId;
     this.memberId = memberId;
-    this.exhibition = exhibition;
-    this.ground = ground;
-    this.fleamarket = fleamarket;
+    this.game = game;
+    this.yard = yard;
+    this.stage = stage;
     this.bungeobang = bungeobang;
-    this.sangsang = sangsang;
+    this.photo = photo;
     this.isPrized = isPrized;
   }
 
@@ -33,11 +33,11 @@ public class StampResponse {
     return StampResponse.builder()
         .stampId(stamp.getStampId())
         .memberId(stamp.getMemberId())
-        .exhibition(stamp.getExhibition())
-        .ground(stamp.getGround())
-        .fleamarket(stamp.getFleamarket())
+        .game(stamp.getGame())
+        .yard(stamp.getYard())
+        .stage(stamp.getStage())
         .bungeobang(stamp.getBungeobang())
-        .sangsang(stamp.getSangsang())
+        .photo(stamp.getPhoto())
         .isPrized(stamp.getIsPrized())
         .build();
   }
