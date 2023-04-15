@@ -9,11 +9,11 @@ public class StampResponse {
 
   private Long stampId;
   private Long memberId;
-  private Boolean game; //exhibition -> game
-  private Boolean yard; // ground -> yard
-  private Boolean stage; // fleamearket -> stage
+  private Boolean game;
+  private Boolean yard;
+  private Boolean stage;
   private Boolean bungeobang;
-  private Boolean photo; // sangsang -> photo
+  private Boolean photo;
   private Boolean isPrized;
 
   @Builder
