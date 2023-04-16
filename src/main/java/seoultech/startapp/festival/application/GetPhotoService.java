@@ -15,19 +15,20 @@ import seoultech.startapp.festival.domain.Photo;
 @RequiredArgsConstructor
 public class GetPhotoService implements GetPhotoUseCase {
 
-//  private final LoadPhotoPort loadPhotoPort;
+  private final LoadPhotoPort loadPhotoPort;
 
   @Override
-  public PhotoGetResponse getAll() {
-    return null;
+  public PhotoListGetResponse getAll() {
+    return new PhotoListGetResponse(findAll());
   }
 
   @Transactional(readOnly = true)
   @Override
   public List<PhotoResponse> findAll() {
-//    List<Photo> photoList = loadPhotoPort.loadListOrderById();
-//    return photoList.stream().map(PhotoResponse::toDto).toList();
-    return null;
+    List<Photo> photoList = loadPhotoPort.loadListOrderById();
+    return photoList.stream()
+            .map(PhotoResponse::toDto)
+            .toList();
   }
 }
 

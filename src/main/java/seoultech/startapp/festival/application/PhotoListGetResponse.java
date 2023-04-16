@@ -9,12 +9,12 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class PhotoGetResponse implements Serializable {
+public class PhotoListGetResponse implements Serializable {
 
   private List<PhotoResponse> photoList;
 
   @Builder
-  public PhotoGetResponse(
+  public PhotoListGetResponse(
       List<PhotoResponse> photoList) {
     this.photoList = photoList;
   }

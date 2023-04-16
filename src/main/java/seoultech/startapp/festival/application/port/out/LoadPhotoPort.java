@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface LoadPhotoPort {
 
-  Photo loadById(int photoId);
+//  Photo loadById(int photoId);
   List<Photo> loadListOrderById();
 }

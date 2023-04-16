@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import seoultech.startapp.festival.application.PhotoGetResponse;
+import seoultech.startapp.festival.application.PhotoListGetResponse;
 import seoultech.startapp.festival.application.port.in.GetPhotoUseCase;
 import seoultech.startapp.global.response.JsonResponse;
 
@@ -19,8 +19,7 @@ public class PhotoController {
 
   @GetMapping("")
   public ResponseEntity<?> getPhotoList(){
-
-    PhotoGetResponse result = getPhotoUseCase.getAll();
+    PhotoListGetResponse result = getPhotoUseCase.getAll();
     return JsonResponse.okWithData(HttpStatus.OK,"포토존 리스트 조회를 성공했습니다.", result);
   }
 
