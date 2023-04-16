@@ -8,11 +8,15 @@ import org.jetbrains.annotations.Nullable;
 public class Truck {
 
   private int truckId;
+
   private String truckName;
+
   @Nullable
   private String truckDescription;
+
   @Nullable
   private String truckImageUrl;
+
   private String truckLocation;
 
   @Builder
@@ -22,6 +26,5 @@ public class Truck {
     this.truckDescription = truckDescription;
     this.truckImageUrl = truckImageUrl;
     this.truckLocation = truckLocation;
-
   }
 }

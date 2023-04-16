@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import seoultech.startapp.festival.application.PhotoGetResponse;
-import seoultech.startapp.festival.application.TruckGetResponse;
 import seoultech.startapp.festival.application.port.in.GetPhotoUseCase;
-import seoultech.startapp.festival.application.port.in.GetTruckUseCase;
 import seoultech.startapp.global.response.JsonResponse;
 
 @RestController

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface LoadTruckPort {
 
-  Truck loadById(int truckId);
+//  Truck loadById(int truckId);
   List<Truck> loadListOrderById();
 }

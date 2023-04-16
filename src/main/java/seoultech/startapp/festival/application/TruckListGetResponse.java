@@ -9,13 +9,12 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class TruckGetResponse implements Serializable {
+public class TruckListGetResponse implements Serializable {
 
   private List<TruckResponse> truckList;
 
   @Builder
-  public TruckGetResponse(
-      List<TruckResponse> truckList) {
+  public TruckListGetResponse(List<TruckResponse> truckList) {
     this.truckList = truckList;
   }
 }

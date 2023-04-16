@@ -13,17 +13,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetTruckService implements GetTruckUseCase {
 
-  private final LoadTruckPort loadTruckPort;
+    private final LoadTruckPort loadTruckPort;
 
-  @Override
-  public TruckGetResponse getAll() {
-    return null;
-  }
+    @Override
+    public TruckListGetResponse getAll() {
+        return new TruckListGetResponse(findAll());
+    }
 
-  @Transactional(readOnly = true)
-  @Override
-  public List<TruckResponse> findAll() {
-    List<Truck> truckList = loadTruckPort.loadListOrderById();
-    return truckList.stream().map(TruckResponse::toDto).toList();
-  }
+    @Transactional(readOnly = true)
+    @Override
+    public List<TruckResponse> findAll() {
+        List<Truck> truckList = loadTruckPort.loadListOrderById();
+        return truckList.stream()
+                .map(TruckResponse::toDto)
+                .toList();
+    }
 }
