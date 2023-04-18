@@ -10,7 +10,7 @@ import seoultech.startapp.festival.domain.LineUp;
 
 @Component
 @RequiredArgsConstructor
-public class LineUpPersistenceAdapter implements LoadLineUpPort, SaveLineUpPort , DeleteLineUpPort {
+public class LineUpPersistenceAdapter implements LoadLineUpPort, SaveLineUpPort, DeleteLineUpPort {
 
   private final LineUpMapper lineUpMapper;
   private final JpaLineUpRepository jpaLineUpRepository;

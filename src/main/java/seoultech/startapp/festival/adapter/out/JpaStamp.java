@@ -26,15 +26,15 @@ public class JpaStamp {
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
-  private Boolean exhibition;
+  private Boolean game;
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
-  private Boolean ground;
+  private Boolean yard;
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
-  private Boolean fleamarket;
+  private Boolean stage;
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
@@ -42,22 +42,22 @@ public class JpaStamp {
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
-  private Boolean sangsang;
+  private Boolean photo;
 
   @Column(nullable = false)
   @Convert(converter = BooleanToYNConverter.class)
   private Boolean isPrized;
 
   @Builder
-  public JpaStamp(Long id, Long memberId, Boolean exhibition, Boolean ground,
-      Boolean fleamarket, Boolean bungeobang, Boolean sangsang, Boolean isPrized) {
+  public JpaStamp(Long id, Long memberId, Boolean game, Boolean yard,
+      Boolean stage, Boolean bungeobang, Boolean photo, Boolean isPrized) {
     this.id = id;
     this.memberId = memberId;
-    this.exhibition = exhibition;
-    this.ground = ground;
-    this.fleamarket = fleamarket;
+    this.game = game;
+    this.yard = yard;
+    this.stage = stage;
     this.bungeobang = bungeobang;
-    this.sangsang = sangsang;
+    this.photo = photo;
     this.isPrized = isPrized;
   }
 }
