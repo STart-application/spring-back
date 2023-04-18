@@ -34,7 +34,8 @@ public class JpaVotingOption {
   @Comment("투표 옵션의 상태. A: 후보, B: 당선, C: 숨김")
   private String status;
 
-  @Column(name = "create_date")
+  //create_date
+  @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime createDate;
 
 }

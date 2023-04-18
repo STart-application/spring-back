@@ -26,7 +26,7 @@ public class JpaVoter {
   @Column(name = "member_id")
   private Long memberId;
 
-  @Column(name = "vote_date")
+  @Column(name = "vote_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   @Comment("투표 날짜")
   private LocalDateTime voteDate;
 

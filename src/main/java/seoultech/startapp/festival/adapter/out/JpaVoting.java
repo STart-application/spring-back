@@ -37,7 +37,7 @@ public class JpaVoting {
   @Column(name = "img_url")
   private String imgUrl;
 
-  @Column(name = "create_date")
+  @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime createDate;
 
 }
