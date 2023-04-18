@@ -37,14 +37,14 @@ public class VoteController {
   }
 
   @GetMapping("/{votingId}")
-  public ResponseEntity<?> getVoteDetail(@PathVariable Long votingId) {
-    var result = getVoteUseCase.getVoteDetail(votingId, 0L);
+  public ResponseEntity<?> getVoteDetail(@PathVariable Long votingId, @LoginMember AuthMember member) {
+    var result = getVoteUseCase.getVoteDetail(votingId, member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 세부 사항 조회", result);
   }
 
   @PostMapping("")
-  public ResponseEntity<?> vote(@RequestBody RegisterVoterRequest voterRequest) {
-    registerVoterUseCase.registerVoter(voterRequest.toCommand(0L));
+  public ResponseEntity<?> vote(@RequestBody RegisterVoterRequest voterRequest, @LoginMember AuthMember member) {
+    registerVoterUseCase.registerVoter(voterRequest.toCommand(member.getMemberId()));
     return JsonResponse.ok(HttpStatus.CREATED, "투표 성공");
   }
 
