@@ -50,5 +50,4 @@ class EventAdminController {
         eventRemoveUseCase.removeEvent(eventId);
         return JsonResponse.ok(HttpStatus.OK,"이벤트를 삭제했습니다.");
     }
-
 }

@@ -25,13 +25,13 @@ class StampCommandTest {
   @Test
   @DisplayName("스탬프 validation 성공")
   public void stampSuccess() throws Exception {
-    String target = "ground"; // 맞는 값
+    String target = "yard"; // 맞는 값
 
     StampCommand command = StampCommand.builder()
         .memberId(1L)
         .target(target)
         .build();
 
-    assertEquals(StampList.GROUND,command.getTarget());
+    assertEquals(StampList.YARD,command.getTarget());
   }
 }
