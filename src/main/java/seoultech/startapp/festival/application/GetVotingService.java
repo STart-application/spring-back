@@ -21,6 +21,7 @@ public class GetVotingService implements GetVoteUseCase {
   private final LoadVotingOptionPort loadVotingOptionPort;
 
   @Override
+  @Transactional(readOnly = true)
   public List<VoteResponse> findAll() {
     return loadVotingPort.loadAll().stream().map(VoteResponse::from).toList();
   }
@@ -35,6 +36,7 @@ public class GetVotingService implements GetVoteUseCase {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public VoteCountResponse getVoteCount(Long votingId) {
     var voterList = loadVoterPort.loadAllByVotingId(votingId);
 
