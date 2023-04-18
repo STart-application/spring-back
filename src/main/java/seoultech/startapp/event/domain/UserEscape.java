@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserEscape {
 
-    private String studentNo;
+    private Long memberId;
     private int roomId;
 
     @Builder
-    public UserEscape(String studentNo, int roomId) {
-        this.studentNo = studentNo;
+    public UserEscape(Long memberId, int roomId) {
+        this.memberId = memberId;
         this.roomId = roomId;
     }
 }

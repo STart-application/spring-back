@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequiredArgsConstructor
 public class RoomAnswerRequest {
 
-    private String studentNo;
-
     private int roomId;
 
     private String answer;

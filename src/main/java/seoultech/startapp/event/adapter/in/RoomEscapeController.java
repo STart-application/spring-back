@@ -11,6 +11,8 @@ import seoultech.startapp.event.application.UserEscapeResponse;
 import seoultech.startapp.event.application.port.in.RoomEscapeGetUseCase;
 import seoultech.startapp.event.application.port.in.UserEscapeGetUseCase;
 import seoultech.startapp.event.application.port.in.UserEscapeRegisterUseCase;
+import seoultech.startapp.global.config.web.AuthMember;
+import seoultech.startapp.global.config.web.LoginMember;
 import seoultech.startapp.global.response.JsonResponse;
 
 import java.util.List;
@@ -42,10 +44,10 @@ class RoomEscapeController {
      * 유저가 특정 문제의 정답이 맞았는지 조회하는 api
      */
     @PostMapping("/answer")
-    public ResponseEntity<?> postUserEscape(@RequestBody RoomAnswerRequest request) {
+    public ResponseEntity<?> postUserEscape(@LoginMember AuthMember member, @RequestBody RoomAnswerRequest request) {
         System.out.println("request = " + request);
         SuccessEscapeResponse successEscapeResponse = userEscapeRegisterUseCase.checkUserAnswer(
-                request.getStudentNo(),
+                member.getMemberId(),
                 request.getRoomId(),
                 request.getAnswer()
         );
@@ -55,9 +57,9 @@ class RoomEscapeController {
     /**
      * 유저가 몇번방까지 풀었는지 조회하는 api
      */
-    @GetMapping("/user/{studentNo}")
-    public ResponseEntity<?> getUserRoomNum(@PathVariable String studentNo) {
-        UserEscapeResponse userEscapeResponse = userEscapeGetUseCase.getRecentUserEscape(studentNo);
-        return JsonResponse.okWithData(HttpStatus.OK, "유저의 방 위치 조회를 성공했습니다.", userEscapeResponse);
+    @GetMapping("/history")
+    public ResponseEntity<?> getUserRoomEscapeHistory(@LoginMember AuthMember member) {
+        int roomId = userEscapeGetUseCase.getRecentEscapeRoomId(member.getMemberId());
+        return JsonResponse.okWithData(HttpStatus.OK, "유저의 방 위치 조회를 성공했습니다.", new UserEscapeResponse(roomId));
     }
 }

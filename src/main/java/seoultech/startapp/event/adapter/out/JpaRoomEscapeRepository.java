@@ -6,6 +6,5 @@ import java.util.Optional;
 
 public interface JpaRoomEscapeRepository extends JpaRepository<JpaRoomEscape, Long> {
 
-//    @Override
     Optional<JpaRoomEscape> findByRoomId(int roomId);
 }

@@ -16,16 +16,16 @@ public class JpaUserEscape {
     @Column(name = "user_escape_id")
     private Long id;
 
-    @Column(name = "student_no")
-    private String studentNo;
+    @Column(name = "member_id")
+    private Long memberId;
 
     @Column(name = "room_id")
     private int roomId;
 
     @Builder
-    public JpaUserEscape(Long id, String studentNo, int roomId) {
+    public JpaUserEscape(Long id, Long memberId, int roomId) {
         this.id = id;
-        this.studentNo = studentNo;
+        this.memberId = memberId;
         this.roomId = roomId;
     }
 }

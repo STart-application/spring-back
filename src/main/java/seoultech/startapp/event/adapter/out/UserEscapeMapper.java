@@ -11,7 +11,7 @@ public class UserEscapeMapper {
 
     public UserEscape mapToDomainUserEscape(JpaUserEscape jpaUserEscape) {
         UserEscape userEscape = UserEscape.builder()
-                .studentNo(jpaUserEscape.getStudentNo())
+                .memberId(jpaUserEscape.getMemberId())
                 .roomId(jpaUserEscape.getRoomId())
                 .build();
         return userEscape;
@@ -28,7 +28,7 @@ public class UserEscapeMapper {
     public JpaUserEscape mapToJpaUserEscape(UserEscape userEscape) {
         return JpaUserEscape.builder()
                 .id(null)
-                .studentNo(userEscape.getStudentNo())
+                .memberId(userEscape.getMemberId())
                 .roomId(userEscape.getRoomId())
                 .build();
     }

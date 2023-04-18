@@ -19,17 +19,17 @@ public class UserEscapeGetService implements UserEscapeGetUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public UserEscapeResponse getRecentUserEscape(String studentNo) {
-        List<UserEscape> userEscapeList = loadUserEscapePort.loadUserEscapeListByStudentNo(studentNo);
+    public int getRecentEscapeRoomId(Long memberId) {
+        List<UserEscape> userEscapeList = loadUserEscapePort.loadUserEscapeListByStudentNo(memberId);
         if (userEscapeList.isEmpty()) {
-            return new UserEscapeResponse(studentNo, 0);
+            return 0;
         } else {
             UserEscape recentUserEscape = getRecentUserEscape(userEscapeList);
-            return UserEscapeResponse.userEscapeToUserEscapeResponse(recentUserEscape);
+            return recentUserEscape.getRoomId();
         }
     }
 
-    private static UserEscape getRecentUserEscape(List<UserEscape> userEscapeList) {
+    private UserEscape getRecentUserEscape(List<UserEscape> userEscapeList) {
         UserEscape recentUserEscape = userEscapeList.get(0);
         for (UserEscape userEscape : userEscapeList) {
             if (recentUserEscape.getRoomId()<userEscape.getRoomId())

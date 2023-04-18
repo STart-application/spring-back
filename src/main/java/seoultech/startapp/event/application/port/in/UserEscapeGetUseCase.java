@@ -4,6 +4,6 @@ import seoultech.startapp.event.application.UserEscapeResponse;
 
 public interface UserEscapeGetUseCase {
 
-    UserEscapeResponse getRecentUserEscape(String studentNo);
+    int getRecentEscapeRoomId(Long memberId);
 }
 

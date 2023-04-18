@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface JpaUserEscapeRepository extends JpaRepository<JpaUserEscape, Long> {
 
-    List<JpaUserEscape> findAllByStudentNo(String studentNo);
+    List<JpaUserEscape> findAllByMemberId(Long memberId);
 }

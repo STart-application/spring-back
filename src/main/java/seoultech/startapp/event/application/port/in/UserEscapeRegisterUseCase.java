@@ -4,6 +4,6 @@ import seoultech.startapp.event.application.SuccessEscapeResponse;
 
 public interface UserEscapeRegisterUseCase {
 
-    SuccessEscapeResponse checkUserAnswer(String studentNo, int roomId, String userAnswer);
+    SuccessEscapeResponse checkUserAnswer(Long memberId, int roomId, String userAnswer);
 }
 

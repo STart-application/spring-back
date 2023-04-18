@@ -19,8 +19,8 @@ public class UserEscapePersistenceAdapter implements LoadUserEscapePort, SaveUse
     private final UserEscapeMapper mapper;
 
     @Override
-    public List<UserEscape> loadUserEscapeListByStudentNo(String studentNo) {
-        List<JpaUserEscape> jpaUserEscapeList = jpaUserEscapeRepository.findAllByStudentNo(studentNo);
+    public List<UserEscape> loadUserEscapeListByStudentNo(Long memberId) {
+        List<JpaUserEscape> jpaUserEscapeList = jpaUserEscapeRepository.findAllByMemberId(memberId);
 //        jpaUserEscapeList
 //                .orElseThrow(() -> new NotFoundJpaEventException("id에 해당하는 유저 탈출 목록이 없습니다."));
 

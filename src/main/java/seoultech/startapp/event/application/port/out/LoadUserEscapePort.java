@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface LoadUserEscapePort {
 
-    List<UserEscape> loadUserEscapeListByStudentNo(String  studentNo);
+    List<UserEscape> loadUserEscapeListByStudentNo(Long memberId);
 }
