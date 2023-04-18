@@ -3,19 +3,21 @@ package seoultech.startapp.global.common;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicLong;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import seoultech.startapp.festival.application.VoteResponse;
+import seoultech.startapp.festival.application.port.in.GetVoteUseCase;
 
 @Component
 @Slf4j
 public class SseEmitters {
-
-  private static final AtomicLong counter = new AtomicLong();
-
-
+  private final GetVoteUseCase getVoteUseCase;
   private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
+  public SseEmitters(GetVoteUseCase getVoteUseCase) {
+    this.getVoteUseCase = getVoteUseCase;
+  }
 
   public SseEmitter add(SseEmitter emitter) {
     this.emitters.add(emitter);
@@ -34,12 +36,25 @@ public class SseEmitters {
   }
 
   public void count() {
-    long count = counter.incrementAndGet();
+    var votingList = getVoteUseCase.findAll();
+
+    var votingFindFirstIsActive = votingList.stream()
+        .filter(voting -> "ACTIVE".equals(voting.getStatus()))
+        .findFirst();
+
+    if(votingFindFirstIsActive.isEmpty()) {
+      return;
+    }
+
+    var votingId = votingFindFirstIsActive.get().getVotingId();
+
+    var count = getVoteUseCase.getVoteCount(votingId);
+
     emitters.forEach(emitter -> {
       try {
         emitter.send(SseEmitter.event()
-            .name("count")
-            .data(count));
+            .name("SHOW_VOTE_RESULT_"+votingId)
+            .data(count+"\n\n"));
       } catch (IOException e) {
         throw new RuntimeException(e);
       }

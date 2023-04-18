@@ -11,7 +11,7 @@ import seoultech.startapp.festival.exception.NotFoundVotingException;
 @RequiredArgsConstructor
 public class VotePersistenceAdapter implements LoadVotingPort {
 
-  JpaVotingRepository jpaVotingRepository;
+  private final JpaVotingRepository jpaVotingRepository;
 
   @Override
   public List<Voting> loadAll() {

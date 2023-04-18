@@ -9,29 +9,27 @@ import seoultech.startapp.festival.application.port.in.GetVoteUseCase;
 import seoultech.startapp.festival.application.port.out.LoadVoterPort;
 import seoultech.startapp.festival.application.port.out.LoadVotingOptionPort;
 import seoultech.startapp.festival.application.port.out.LoadVotingPort;
-import seoultech.startapp.festival.domain.Voter;
 
 
 @Service
 @RequiredArgsConstructor
 public class GetVotingService implements GetVoteUseCase {
 
-  private final LoadVotingPort loadVotePort;
+  private final LoadVotingPort loadVotingPort;
   private final LoadVoterPort loadVoterPort;
 
   private final LoadVotingOptionPort loadVotingOptionPort;
 
   @Override
   public List<VoteResponse> findAll() {
-    return loadVotePort.loadAll().stream().map(VoteResponse::from).toList();
+    return loadVotingPort.loadAll().stream().map(VoteResponse::from).toList();
   }
 
   @Transactional(readOnly = true)
   @Override
   public VoteDetailResponse getVoteDetail(Long votingId, Long memberId) {
-    var voting = loadVotePort.loadById(votingId);
-    var voter = loadVoterPort.loadByMemberIdAndVotingId(memberId, votingId)
-        .orElse(new Voter());
+    var voting = loadVotingPort.loadById(votingId);
+    var voter = loadVoterPort.loadByMemberIdAndVotingId(memberId, votingId);
     var votingOptions = loadVotingOptionPort.loadByVotingId(votingId);
     return VoteDetailResponse.from(voting, votingOptions, voter);
   }

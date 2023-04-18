@@ -30,14 +30,6 @@ public class JpaVoting {
   @Comment("최대 선택 개수")
   private int maxSelect;
 
-  //TODO: 실제로 필요한 컬럼인지 확인 필요
-  @Column(name = "open_date")
-  private LocalDateTime openDate;
-
-  //TODO: 실제로 필요한 컬럼인지 확인 필요
-  @Column(name = "close_date")
-  private LocalDateTime closeDate;
-
   @Column(name = "status")
   @Comment("투표 상태. ACTIVE: 활성, INACTIVE: 비활성, HIDDEN: 숨김")
   private String status;

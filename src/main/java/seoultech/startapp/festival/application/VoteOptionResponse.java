@@ -1,12 +1,15 @@
 package seoultech.startapp.festival.application;
 
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import seoultech.startapp.festival.domain.VotingOption;
 
 @Builder
+@Getter
 @AllArgsConstructor
-public class VoteOptionResponse {
+public class VoteOptionResponse implements Serializable {
   private Long votingOptionId;
   private Long votingId;
   private String optionTitle;

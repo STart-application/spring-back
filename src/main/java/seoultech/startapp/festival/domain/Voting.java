@@ -3,23 +3,17 @@ package seoultech.startapp.festival.domain;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import seoultech.startapp.festival.exception.validVotingRequestException;
 import seoultech.startapp.festival.adapter.out.JpaVoting;
 
 @Getter
 @Builder
-@RequiredArgsConstructor
 public class Voting {
   private Long votingId;
   private String title;
 
   private int minSelect;
   private int maxSelect;
-
-  private LocalDateTime openDate;
-
-  private LocalDateTime closeDate;
 
   private String status;
 
@@ -33,8 +27,6 @@ public class Voting {
         .title(jpaVoting.getTitle())
         .minSelect(jpaVoting.getMinSelect())
         .maxSelect(jpaVoting.getMaxSelect())
-        .openDate(jpaVoting.getOpenDate())
-        .closeDate(jpaVoting.getCloseDate())
         .status(jpaVoting.getStatus())
         .imgUrl(jpaVoting.getImgUrl())
         .createDate(jpaVoting.getCreateDate())
