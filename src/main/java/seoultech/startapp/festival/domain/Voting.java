@@ -3,7 +3,7 @@ package seoultech.startapp.festival.domain;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
-import seoultech.startapp.festival.exception.validVotingRequestException;
+import seoultech.startapp.festival.exception.ValidVotingRequestException;
 import seoultech.startapp.festival.adapter.out.JpaVoting;
 
 @Getter
@@ -35,13 +35,13 @@ public class Voting {
 
   public void validateVoting(Voter voter){
     if (isNotActive()){
-      throw new validVotingRequestException("투표가 활성화 되지 않았습니다.");
+      throw new ValidVotingRequestException("투표가 활성화 되지 않았습니다.");
     }
     if(isOverSelected(voter.getVotingOptionIds().size())){
-      throw new validVotingRequestException("정해진 개수보다 많이 선택했습니다.");
+      throw new ValidVotingRequestException("정해진 개수보다 많이 선택했습니다.");
     }
     if(isUnderSelected(voter.getVotingOptionIds().size())){
-      throw new validVotingRequestException("정해진 개수보다 적게 선택했습니다.");
+      throw new ValidVotingRequestException("정해진 개수보다 적게 선택했습니다.");
     }
   }
   private boolean isNotActive(){
