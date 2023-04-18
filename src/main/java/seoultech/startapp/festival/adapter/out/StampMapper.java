@@ -10,11 +10,11 @@ public class StampMapper {
     return Stamp.builder()
         .stampId(jpaStamp.getId())
         .memberId(jpaStamp.getMemberId())
-        .exhibition(jpaStamp.getExhibition())
-        .ground(jpaStamp.getGround())
-        .fleamarket(jpaStamp.getFleamarket())
+        .game(jpaStamp.getGame())
+        .yard(jpaStamp.getYard())
+        .stage(jpaStamp.getStage())
         .bungeobang(jpaStamp.getBungeobang())
-        .sangsang(jpaStamp.getSangsang())
+        .photo(jpaStamp.getPhoto())
         .isPrized(jpaStamp.getIsPrized())
         .build();
   }
@@ -24,11 +24,11 @@ public class StampMapper {
     return JpaStamp.builder()
         .id(stamp.getStampId() == null ? null : stamp.getStampId())
         .memberId(stamp.getMemberId())
-        .exhibition(stamp.getExhibition())
-        .ground(stamp.getGround())
-        .fleamarket(stamp.getFleamarket())
+        .game(stamp.getGame())
+        .yard(stamp.getYard())
+        .stage(stamp.getStage())
         .bungeobang(stamp.getBungeobang())
-        .sangsang(stamp.getSangsang())
+        .photo(stamp.getPhoto())
         .isPrized(stamp.getIsPrized())
         .build();
   }
