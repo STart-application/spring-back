@@ -38,21 +38,21 @@ class StampServiceTest {
     allFalseStamp = Stamp.builder()
         .stampId(1L)
         .memberId(1L)
-        .sangsang(false)
+        .photo(false)
         .bungeobang(false)
-        .exhibition(false)
-        .fleamarket(false)
-        .ground(false)
+        .game(false)
+        .stage(false)
+        .yard(false)
         .isPrized(false)
         .build();
     allTrueStamp = Stamp.builder()
         .stampId(1L)
         .memberId(1L)
-        .sangsang(true)
+        .photo(true)
         .bungeobang(true)
-        .exhibition(true)
-        .fleamarket(true)
-        .ground(true)
+        .game(true)
+        .stage(true)
+        .yard(true)
         .isPrized(true)
         .build();
   }
@@ -67,10 +67,10 @@ class StampServiceTest {
     StampResponse result = stampService.getMyStamp(memberId);
 
     assertEquals(result.getBungeobang(), false);
-    assertEquals(result.getExhibition(), false);
-    assertEquals(result.getFleamarket(), false);
-    assertEquals(result.getSangsang(), false);
-    assertEquals(result.getGround(), false);
+    assertEquals(result.getGame(), false);
+    assertEquals(result.getStage(), false);
+    assertEquals(result.getPhoto(), false);
+    assertEquals(result.getYard(), false);
     assertEquals(result.getIsPrized(),false);
   }
 
@@ -79,13 +79,13 @@ class StampServiceTest {
   public void stampSuccess() throws Exception {
     StampCommand command = StampCommand.builder()
         .memberId(1L)
-        .target("exhibition").build();
+        .target("game").build();
 
     given(loadStampPort.loadByMemberId(command.getMemberId())).willReturn(allFalseStamp);
 
     stampService.stamp(command);
     // false -> true 로 변경
-    assertEquals(allFalseStamp.getExhibition(), true);
+    assertEquals(allFalseStamp.getGame(), true);
   }
 
   @Test
@@ -93,7 +93,7 @@ class StampServiceTest {
   public void stampFail() throws Exception {
     StampCommand command = StampCommand.builder()
         .memberId(1L)
-        .target("exhibition").build();
+        .target("game").build();
     given(loadStampPort.loadByMemberId(command.getMemberId())).willReturn(allTrueStamp);
 
     assertThrows(AlreadyStampException.class , ()->
