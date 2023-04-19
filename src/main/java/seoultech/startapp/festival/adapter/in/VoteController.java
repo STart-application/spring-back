@@ -31,14 +31,14 @@ public class VoteController {
   SseEmitters sseEmitters;
 
   @GetMapping("")
-  public ResponseEntity<?> getVoteList() {
-    var result = getVoteUseCase.findAll();
+  public ResponseEntity<?> getVoteList(@LoginMember AuthMember member) {
+    var result = getVoteUseCase.getVoteSummaryList(member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 전체 조회", result);
   }
 
   @GetMapping("/{votingId}")
-  public ResponseEntity<?> getVoteDetail(@PathVariable Long votingId, @LoginMember AuthMember member) {
-    var result = getVoteUseCase.getVoteDetail(votingId, member.getMemberId());
+  public ResponseEntity<?> getVoteSummary(@PathVariable Long votingId, @LoginMember AuthMember member) {
+    var result = getVoteUseCase.getVoteSummary(votingId, member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 세부 사항 조회", result);
   }
 
@@ -55,7 +55,7 @@ public class VoteController {
     //멤버가 투표를 안했으면 에러 처리해야 함.
 
     SseEmitter emitter = new SseEmitter(60 * 1000L);
-    sseEmitters.add(emitter);
+    sseEmitters.add(votingId, emitter);
 
     try {
       emitter.send(SseEmitter.event()

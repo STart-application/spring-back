@@ -39,5 +39,4 @@ public class JpaVoting {
 
   @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime createDate;
-
 }

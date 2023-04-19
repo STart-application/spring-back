@@ -1,10 +1,14 @@
 package seoultech.startapp.festival.application;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Builder
-public class VoteCountResponse {
-  Map<Long, Integer> voteCountList = new HashMap<>();
+@Getter
+@Setter
+public class VoteCountResponse implements Serializable {
+  private Long votingOptionId;
+  private int count;
 }
