@@ -17,10 +17,8 @@ public class RegisterPhotoCommand extends SelfValidator<RegisterPhotoCommand> {
   @NotBlank
   private String photoName;
 
-  @Nullable
   private String photoDescription;
 
-  @Nullable
   private String photoImageUrl;
 
   @Builder

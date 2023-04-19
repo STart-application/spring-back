@@ -9,9 +9,7 @@ public class Photo {
 
   private int photoId;
   private String photoName;
-  @Nullable
   private String photoDescription;
-  @Nullable
   private String photoImageUrl;
 
   @Builder

@@ -11,10 +11,8 @@ public class Truck {
 
   private String truckName;
 
-  @Nullable
   private String truckDescription;
 
-  @Nullable
   private String truckImageUrl;
 
   private String truckLocation;

@@ -18,11 +18,9 @@ public class RegisterTruckCommand extends SelfValidator<RegisterTruckCommand> {
 
   @NotBlank
   private String truckName;
-
   @Nullable
   private String truckDescription;
 
-  @Nullable
   private String truckImageUrl;
   @NotBlank
   private String truckLocation;
