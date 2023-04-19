@@ -28,17 +28,17 @@ public class VoteController {
   private final GetVoteUseCase getVoteUseCase;
   private final RegisterVoterUseCase registerVoterUseCase;
 
-  SseEmitters sseEmitters;
+  private final SseEmitters sseEmitters;
 
   @GetMapping("")
-  public ResponseEntity<?> getVoteList(@LoginMember AuthMember member) {
-    var result = getVoteUseCase.getVoteSummaryList(member.getMemberId());
+  public ResponseEntity<?> getVoteList() {
+    var result = getVoteUseCase.getVoteSummaryList(0L);
     return JsonResponse.okWithData(HttpStatus.OK, "투표 전체 조회", result);
   }
 
   @GetMapping("/{votingId}")
-  public ResponseEntity<?> getVoteSummary(@PathVariable Long votingId, @LoginMember AuthMember member) {
-    var result = getVoteUseCase.getVoteSummary(votingId, member.getMemberId());
+  public ResponseEntity<?> getVoteSummary(@PathVariable Long votingId) {
+    var result = getVoteUseCase.getVoteSummary(votingId, 0L);
     return JsonResponse.okWithData(HttpStatus.OK, "투표 세부 사항 조회", result);
   }
 
@@ -50,7 +50,7 @@ public class VoteController {
 
 
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public ResponseEntity<?> connect(@PathVariable Long votingId, @LoginMember AuthMember member) {
+  public SseEmitter connect(@PathVariable Long votingId) {
 
     //멤버가 투표를 안했으면 에러 처리해야 함.
 
@@ -64,6 +64,6 @@ public class VoteController {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return ResponseEntity.ok(emitter);
+    return emitter;
   }
 }
