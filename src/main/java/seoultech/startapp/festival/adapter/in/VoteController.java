@@ -31,14 +31,14 @@ public class VoteController {
   private final SseEmitters sseEmitters;
 
   @GetMapping("")
-  public ResponseEntity<?> getVoteList() {
-    var result = getVoteUseCase.getVoteSummaryList(0L);
+  public ResponseEntity<?> getVoteList(@LoginMember AuthMember member) {
+    var result = getVoteUseCase.getVoteSummaryList(member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 전체 조회", result);
   }
 
   @GetMapping("/{votingId}")
-  public ResponseEntity<?> getVoteSummaryResponse(@PathVariable Long votingId) {
-    var result = getVoteUseCase.getVoteSummary(votingId, 0L);
+  public ResponseEntity<?> getVoteSummaryResponse(@PathVariable Long votingId, @LoginMember AuthMember member) {
+    var result = getVoteUseCase.getVoteSummary(votingId, member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 세부 사항 조회", result);
   }
 
@@ -60,7 +60,7 @@ public class VoteController {
     try {
       emitter.send(SseEmitter.event()
           .name("SHOW_VOTE_RESULT_"+votingId)
-          .data("connected!"));
+          .data("connected!\n\n"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

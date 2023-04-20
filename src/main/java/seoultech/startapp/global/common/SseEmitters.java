@@ -1,5 +1,7 @@
 package seoultech.startapp.global.common;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -40,11 +42,12 @@ public class SseEmitters {
   public void count() {
     var votingIdList = votingEmitters.stream().map(VotingSseEmitter::getVotingId).distinct().toList();
 
-    var voteCountMap = new HashMap<Long, List<VoteCountResponse>>();
+    var voteCountMap = new HashMap<Long, String>();
 
     votingIdList.forEach(votingId -> {
       var voteCountResponseList = getVoteUseCase.getVoteCount(votingId);
-      voteCountMap.put(votingId, voteCountResponseList);
+      var json = new Gson().toJson(voteCountResponseList);
+      voteCountMap.put(votingId, json);
     });
 
     votingEmitters.forEach(votingEmitter -> {
