@@ -34,7 +34,7 @@ public class JpaVotingOption {
   private String optionTitle;
 
   @Column(name = "status")
-  @Comment("투표 옵션의 상태. A: 후보, B: 당선, C: 숨김")
+  @Comment("투표 옵션의 상태. CANDIDATE: 후보, WINNER: 당선, HIDDEN: 숨김")
   private String status;
 
   //create_date
