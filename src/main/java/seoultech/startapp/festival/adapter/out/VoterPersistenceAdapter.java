@@ -25,6 +25,11 @@ public class VoterPersistenceAdapter implements LoadVoterPort, SaveVoterPort {
   }
 
   @Override
+  public List<Voter> loadAllByMemberIdAndVotingIdList(Long memberId, List<Long> votingIdList) {
+    return jpaVoterRepository.findAllByMemberIdAndVotingIdIn(memberId, votingIdList).stream().map(Voter::fromEntity).toList();
+  }
+
+  @Override
   public void save(Voter voter) {
     jpaVoterRepository.save(voter.toEntity());
   }

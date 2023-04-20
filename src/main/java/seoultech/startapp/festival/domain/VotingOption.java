@@ -15,7 +15,7 @@ public class VotingOption {
   public static VotingOption fromEntity(JpaVotingOption jpaVotingOption) {
     return VotingOption.builder()
         .votingOptionId(jpaVotingOption.getVotingOptionId())
-        .votingId(jpaVotingOption.getVotingId())
+        .votingId(jpaVotingOption.getJpaVoting().getVotingId())
         .optionTitle(jpaVotingOption.getOptionTitle())
         .status(jpaVotingOption.getStatus())
         .build();
