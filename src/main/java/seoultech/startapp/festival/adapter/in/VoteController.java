@@ -64,6 +64,7 @@ public class VoteController {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+    sseEmitters.count();
     return emitter;
   }
 }
