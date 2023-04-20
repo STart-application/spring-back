@@ -16,6 +16,7 @@ import seoultech.startapp.festival.application.port.in.GetVoteUseCase;
 @Slf4j
 public class SseEmitters {
   private final GetVoteUseCase getVoteUseCase;
+  private final Gson gson = new Gson();
   private final List<VotingSseEmitter> votingEmitters = new CopyOnWriteArrayList<>();
 
   public SseEmitters(GetVoteUseCase getVoteUseCase) {
@@ -43,10 +44,9 @@ public class SseEmitters {
     var votingIdList = votingEmitters.stream().map(VotingSseEmitter::getVotingId).distinct().toList();
 
     var voteCountMap = new HashMap<Long, String>();
-
     votingIdList.forEach(votingId -> {
       var voteCountResponseList = getVoteUseCase.getVoteCount(votingId);
-      var json = new Gson().toJson(voteCountResponseList);
+      var json = gson.toJson(voteCountResponseList);
       voteCountMap.put(votingId, json);
     });
 
