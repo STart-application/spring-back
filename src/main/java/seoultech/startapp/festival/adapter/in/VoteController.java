@@ -56,7 +56,7 @@ public class VoteController {
 
   @GetMapping("/count/{votingId}")
   public ResponseEntity<?> getVoteCount(@PathVariable Long votingId, @LoginMember AuthMember member) {
-    if(getVoterUseCase.isVoted(votingId, member.getMemberId())){
+    if(!getVoterUseCase.isVoted(votingId, member.getMemberId())){
       throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
     }
 
