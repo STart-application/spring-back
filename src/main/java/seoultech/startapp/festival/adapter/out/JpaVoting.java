@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -27,13 +28,14 @@ public class JpaVoting {
   private Long votingId;
 
   @Column(name = "title")
+  @NotNull
   private String title;
 
-  @Column(name = "min_select")
+  @Column(name = "min_select", columnDefinition = "INT DEFAULT 1")
   @Comment("최소 선택 개수")
   private int minSelect;
 
-  @Column(name = "max_select")
+  @Column(name = "max_select", columnDefinition = "INT DEFAULT 1")
   @Comment("최대 선택 개수")
   private int maxSelect;
 
@@ -41,11 +43,18 @@ public class JpaVoting {
   @Comment("투표 상태. BEFORE: 투표예정, STARTED: 투표 시작됨, END: 투표 마감, HIDDEN: 투표 숨김")
   private String status;
 
-  @Column(name = "img_url")
-  private String imgUrl;
+  @Column(name = "description")
+  @NotNull
+  private String description;
 
   @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private LocalDateTime createDate;
+
+  @Column(name = "display_start_date")
+  private LocalDateTime displayStartDate;
+
+  @Column(name = "display_end_date")
+  private LocalDateTime displayEndDate;
 
   @OneToMany(mappedBy = "jpaVoting", fetch = LAZY)
   @JsonIgnore

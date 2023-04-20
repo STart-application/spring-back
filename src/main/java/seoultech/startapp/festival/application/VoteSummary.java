@@ -1,6 +1,7 @@
 package seoultech.startapp.festival.application;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
@@ -17,10 +18,13 @@ public class VoteSummary implements Serializable {
   private Long votingId;
   private String title;
   private String status;
-  private String imgUrl;
+  private String description;
 
   private int minSelect;
   private int maxSelect;
+  private LocalDateTime displayStartDate;
+
+  private LocalDateTime displayEndDate;
 
   private List<VotingOptionSummary> voteOptionList;
 
@@ -31,7 +35,9 @@ public class VoteSummary implements Serializable {
         .votingId(voting.getVotingId())
         .title(voting.getTitle())
         .status(voting.getStatus().name())
-        .imgUrl(voting.getImgUrl())
+        .description(voting.getDescription())
+        .displayStartDate(voting.getDisplayStartDate())
+        .displayEndDate(voting.getDisplayEndDate())
         .minSelect(voting.getMinSelect())
         .maxSelect(voting.getMaxSelect())
         .voteOptionList(

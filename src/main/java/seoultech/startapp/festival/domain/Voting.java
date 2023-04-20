@@ -18,7 +18,7 @@ public class Voting {
 
   private VotingStatus status;
 
-  private String imgUrl;
+  private String description;
 
   private LocalDateTime createDate;
 
@@ -35,7 +35,9 @@ public class Voting {
         .minSelect(jpaVoting.getMinSelect())
         .maxSelect(jpaVoting.getMaxSelect())
         .status(VotingStatus.valueOf(jpaVoting.getStatus()))
-        .imgUrl(jpaVoting.getImgUrl())
+        .description(jpaVoting.getDescription())
+        .displayStartDate(jpaVoting.getDisplayStartDate())
+        .displayEndDate(jpaVoting.getDisplayEndDate())
         .createDate(jpaVoting.getCreateDate())
         .votingOptions(jpaVoting.getVoteOptionList().stream().map(VotingOption::fromEntity).toList())
         .build();
