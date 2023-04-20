@@ -21,9 +21,6 @@ public class JpaTruck {
     @Column(name = "truck_description")
     private String truckDescription;
 
-    @Column(name = "truck_image_url")
-    private String truckImageUrl;
-
     @Column(name = "truck_location")
     private String truckLocation;
 }

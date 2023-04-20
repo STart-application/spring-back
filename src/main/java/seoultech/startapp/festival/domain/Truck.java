@@ -13,8 +13,6 @@ public class Truck {
 
   private String truckDescription;
 
-  private String truckImageUrl;
-
   private String truckLocation;
 
   @Builder
@@ -22,7 +20,6 @@ public class Truck {
     this.truckId = truckId;
     this.truckName = truckName;
     this.truckDescription = truckDescription;
-    this.truckImageUrl = truckImageUrl;
     this.truckLocation = truckLocation;
   }
 }
