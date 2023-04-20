@@ -68,6 +68,12 @@ public class VoteController {
     return JsonResponse.ok(HttpStatus.CREATED, "투표 성공");
   }
 
+  @GetMapping("/count/{votingId}")
+  public ResponseEntity<?> getVoteCount(@PathVariable Long votingId) {
+    var result = getVoteUseCase.getVoteCount(votingId);
+    return JsonResponse.okWithData(HttpStatus.OK, "투표 결과 조회", result);
+  }
+
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public SseEmitter connect(@PathVariable Long votingId) {
 
