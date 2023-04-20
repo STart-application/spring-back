@@ -21,6 +21,7 @@ import seoultech.startapp.global.common.SseEmitters;
 import seoultech.startapp.global.config.web.AuthMember;
 import seoultech.startapp.global.config.web.LoginMember;
 import seoultech.startapp.global.response.JsonResponse;
+import seoultech.startapp.member.domain.MemberRole;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class VoteController {
   private final SseEmitters sseEmitters;
   @GetMapping("")
   public ResponseEntity<?> getVoteList(@LoginMember AuthMember member) {
+
     var result = getVoteUseCase.getVoteSummaryList(member.getMemberId());
     return JsonResponse.okWithData(HttpStatus.OK, "투표 전체 조회", result);
   }
@@ -47,13 +49,13 @@ public class VoteController {
 
   @PostMapping("")
   public ResponseEntity<?> vote(@RequestBody RegisterVoterRequest voterRequest, @LoginMember AuthMember member) {
+
     registerVoterUseCase.registerVoter(voterRequest.toCommand(member.getMemberId()));
     return JsonResponse.ok(HttpStatus.CREATED, "투표 성공");
   }
 
   @GetMapping("/count/{votingId}")
   public ResponseEntity<?> getVoteCount(@PathVariable Long votingId, @LoginMember AuthMember member) {
-
     if(getVoterUseCase.isVoted(votingId, member.getMemberId())){
       throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
     }
@@ -64,7 +66,6 @@ public class VoteController {
 
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
   public SseEmitter connect(@PathVariable Long votingId, @LoginMember AuthMember member) {
-
     if(!getVoterUseCase.isVoted(votingId, member.getMemberId())){
       throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
     }
