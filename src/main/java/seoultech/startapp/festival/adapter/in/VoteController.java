@@ -37,7 +37,7 @@ public class VoteController {
   }
 
   @GetMapping("/{votingId}")
-  public ResponseEntity<?> getVoteSummary(@PathVariable Long votingId) {
+  public ResponseEntity<?> getVoteSummaryResponse(@PathVariable Long votingId) {
     var result = getVoteUseCase.getVoteSummary(votingId, 0L);
     return JsonResponse.okWithData(HttpStatus.OK, "투표 세부 사항 조회", result);
   }

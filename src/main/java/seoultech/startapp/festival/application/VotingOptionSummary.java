@@ -12,17 +12,15 @@ import seoultech.startapp.festival.domain.VotingOption;
 @AllArgsConstructor
 public class VotingOptionSummary implements Serializable {
   private Long votingOptionId;
-  private Long votingId;
   private String optionTitle;
   private String status;
 
 
-  public static VotingOptionSummary fromEntity(JpaVotingOption jpaVotingOption) {
+  public static VotingOptionSummary fromEntity(VotingOption votingOption) {
     return VotingOptionSummary.builder()
-        .votingOptionId(jpaVotingOption.getVotingOptionId())
-        .votingId(jpaVotingOption.getVotingId())
-        .optionTitle(jpaVotingOption.getOptionTitle())
-        .status(jpaVotingOption.getStatus())
+        .votingOptionId(votingOption.getVotingOptionId())
+        .optionTitle(votingOption.getOptionTitle())
+        .status(votingOption.getStatus())
         .build();
   }
 }

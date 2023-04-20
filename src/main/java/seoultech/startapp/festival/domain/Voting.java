@@ -37,6 +37,7 @@ public class Voting {
         .status(VotingStatus.valueOf(jpaVoting.getStatus()))
         .imgUrl(jpaVoting.getImgUrl())
         .createDate(jpaVoting.getCreateDate())
+        .votingOptions(jpaVoting.getVoteOptionList().stream().map(VotingOption::fromEntity).toList())
         .build();
   }
 
@@ -55,7 +56,7 @@ public class Voting {
     }
   }
   private boolean isNotActive(){
-    return !status.equals("ACTIVE");
+    return !status.name().equals(VotingStatus.START.name());
   }
   private boolean isOverSelected(int selectedCount){
     return selectedCount > maxSelect;
