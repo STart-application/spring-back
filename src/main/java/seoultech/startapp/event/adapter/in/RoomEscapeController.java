@@ -34,8 +34,6 @@ class RoomEscapeController {
      */
     @GetMapping
     public ResponseEntity<?> getQuestionList() {
-        System.out.println("RoomEscapeController.getQuestionList");
-//        log.info("roomEscapeGetUseCase ={}", roomEscapeGetUseCase);
         List<RoomQuestionResponse> responses = roomEscapeGetUseCase.getQuestionList();
         return JsonResponse.okWithData(HttpStatus.OK, "문제 조회를 성공했습니다.", responses);
     }
@@ -45,7 +43,6 @@ class RoomEscapeController {
      */
     @PostMapping("/answer")
     public ResponseEntity<?> postUserEscape(@LoginMember AuthMember member, @RequestBody RoomAnswerRequest request) {
-        System.out.println("request = " + request);
         SuccessEscapeResponse successEscapeResponse = userEscapeRegisterUseCase.checkUserAnswer(
                 member.getMemberId(),
                 request.getRoomId(),

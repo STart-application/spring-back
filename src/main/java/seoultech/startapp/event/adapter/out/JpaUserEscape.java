@@ -1,14 +1,15 @@
 package seoultech.startapp.event.adapter.out;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "user_escape")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class JpaUserEscape {
 
     @Id
@@ -22,10 +23,6 @@ public class JpaUserEscape {
     @Column(name = "room_id")
     private int roomId;
 
-    @Builder
-    public JpaUserEscape(Long id, Long memberId, int roomId) {
-        this.id = id;
-        this.memberId = memberId;
-        this.roomId = roomId;
-    }
+    @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createDate;
 }

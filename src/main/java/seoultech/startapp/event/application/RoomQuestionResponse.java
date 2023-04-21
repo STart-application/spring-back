@@ -14,9 +14,9 @@ public class RoomQuestionResponse {
 
     private String imageUrl;
 
-    public static ArrayList<RoomQuestionResponse> roomEscapeListToRoomQuestionResponseList(List<RoomEscape> roomEscapeList) {
+    public static List<RoomQuestionResponse> roomEscapeListToRoomQuestionResponseList(List<RoomEscape> roomEscapeList) {
 
-        ArrayList<RoomQuestionResponse> list = new ArrayList<>();
+        List<RoomQuestionResponse> list = new ArrayList<>();
         for (RoomEscape roomEscape  : roomEscapeList) {
             RoomQuestionResponse roomQuestionResponse = new RoomQuestionResponse();
             roomQuestionResponse.roomId = roomEscape.getRoomId();
