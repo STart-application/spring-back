@@ -16,14 +16,14 @@ public class RoomEscapePersistenceAdapter implements LoadRoomEscapePort {
     private final RoomEscapeMapper mapper;
 
     @Override
-    public List<RoomEscape> loadRoomEscapeAll() {
-        List<JpaRoomEscape> roomEscapes = jpaRoomEscapeRepository.findAll();
-        List<RoomEscape> roomEscapeList = mapper.mapToDomainRoomEscapeList(roomEscapes);
+    public List<RoomEscape> loadAll() {
+        List<JpaRoomEscape> entityList = jpaRoomEscapeRepository.findAll();
+        List<RoomEscape> roomEscapeList = mapper.mapToDomainRoomEscapeList(entityList);
         return roomEscapeList;
     }
 
     @Override
-    public RoomEscape loadRoomEscapeByRoomId(int roomId) {
+    public RoomEscape loadByRoomId(int roomId) {
         JpaRoomEscape jpaRoomEscape = jpaRoomEscapeRepository.findByRoomId(roomId)
                 .orElseThrow(() -> new NotFoundJpaEventException("room id에 해당하는 이벤트가 없습니다."));
         return mapper.mapToDomainRoomEscape(jpaRoomEscape);

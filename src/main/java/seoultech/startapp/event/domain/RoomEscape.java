@@ -1,11 +1,14 @@
 package seoultech.startapp.event.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoomEscape {
 
     private int roomId;
@@ -14,10 +17,19 @@ public class RoomEscape {
 
     private String answer;
 
-    @Builder
-    public RoomEscape(int roomId, String question, String answer) {
-        this.roomId = roomId;
-        this.questionImageUrl = question;
-        this.answer = answer;
+    public Boolean isNextRoomId(int recentEscapeRoomId) {
+        if (this.roomId == recentEscapeRoomId+1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean isRightAnswer(String userAnswer) {
+        if (this.answer.equals(userAnswer)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

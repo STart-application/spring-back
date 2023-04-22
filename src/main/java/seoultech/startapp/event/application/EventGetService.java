@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 class EventGetService implements EventGetUseCase {
+
     private final LoadEventPort loadEventPort;
 
     @Override

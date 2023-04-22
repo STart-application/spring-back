@@ -1,14 +1,14 @@
 package seoultech.startapp.event.adapter.out;
 
-import lombok.Builder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import seoultech.startapp.global.converter.BooleanToYNConverter;
 import javax.persistence.*;
 
 @Entity(name = "room_escape")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JpaRoomEscape {
 
     @Id
@@ -16,7 +16,7 @@ public class JpaRoomEscape {
     @Column(name = "room_escape_id")
     private Long id;
 
-    @Column(name = "room_id")
+    @Column(name = "room_id", unique = true)
     private int roomId;
 
     @Column(name = "question_image_url")
@@ -24,13 +24,4 @@ public class JpaRoomEscape {
 
     @Column
     private String answer;
-
-
-//    @Builder
-//    public JpaRoomEscape(int id, String questionImageUrl String answer) {
-//        this.id = id;
-//        this.questionImageUrl = question;
-//        this.answer = answer;
-//
-//    }
 }

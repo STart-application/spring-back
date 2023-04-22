@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import seoultech.startapp.event.application.port.in.RoomEscapeGetUseCase;
 import seoultech.startapp.event.application.port.out.LoadRoomEscapePort;
 import seoultech.startapp.event.domain.RoomEscape;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -19,8 +18,8 @@ public class RoomEscapeGetService implements RoomEscapeGetUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public ArrayList<RoomQuestionResponse> getQuestionList() {
-        List<RoomEscape> roomEscapeList = loadRoomEscapePort.loadRoomEscapeAll();
+    public List<RoomQuestionResponse> getQuestionList() {
+        List<RoomEscape> roomEscapeList = loadRoomEscapePort.loadAll();
         return RoomQuestionResponse.roomEscapeListToRoomQuestionResponseList(roomEscapeList);
     }
 }
