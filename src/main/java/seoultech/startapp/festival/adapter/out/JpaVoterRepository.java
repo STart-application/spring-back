@@ -8,4 +8,6 @@ public interface JpaVoterRepository extends JpaRepository<JpaVoter, Long> {
   public Optional<JpaVoter> findByMemberIdAndVotingId(Long memberId, Long votingId);
 
   public List<JpaVoter> findAllByVotingId(Long votingId);
+
+  public List<JpaVoter> findAllByMemberIdAndVotingIdIn(Long memberId, List<Long> votingIdList);
 }

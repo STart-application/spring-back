@@ -23,6 +23,9 @@ public class Voter {
   private List<Long> votingOptionIds;
 
   public static Voter fromEntity(JpaVoter jpaVoter) {
+    if (Objects.isNull(jpaVoter)) {
+      return null;
+    }
     return Voter.builder()
         .votingId(jpaVoter.getVotingId())
         .memberId(jpaVoter.getMemberId())

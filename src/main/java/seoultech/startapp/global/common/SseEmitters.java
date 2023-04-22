@@ -1,31 +1,36 @@
 package seoultech.startapp.global.common;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-import seoultech.startapp.festival.application.VoteResponse;
+import seoultech.startapp.festival.application.VoteCountResponse;
 import seoultech.startapp.festival.application.port.in.GetVoteUseCase;
 
 @Component
 @Slf4j
 public class SseEmitters {
   private final GetVoteUseCase getVoteUseCase;
-  private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+  private final Gson gson = new Gson();
+  private final List<VotingSseEmitter> votingEmitters = new CopyOnWriteArrayList<>();
 
   public SseEmitters(GetVoteUseCase getVoteUseCase) {
     this.getVoteUseCase = getVoteUseCase;
   }
 
-  public SseEmitter add(SseEmitter emitter) {
-    this.emitters.add(emitter);
+  public SseEmitter add(Long votingId, SseEmitter emitter) {
+    var votingSseEmitter = new VotingSseEmitter(votingId, emitter);
+    this.votingEmitters.add(votingSseEmitter);
     log.info("new emitter added: {}", emitter);
-    log.info("emitter list size: {}", emitters.size());
+    log.info("emitter list size: {}", votingEmitters.size());
     emitter.onCompletion(() -> {
       log.info("onCompletion callback");
-      this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
+      this.votingEmitters.remove(votingSseEmitter);    // 만료되면 리스트에서 삭제
     });
     emitter.onTimeout(() -> {
       log.info("onTimeout callback");
@@ -36,25 +41,20 @@ public class SseEmitters {
   }
 
   public void count() {
-    var votingList = getVoteUseCase.findAll();
+    var votingIdList = votingEmitters.stream().map(VotingSseEmitter::getVotingId).distinct().toList();
 
-    var votingFindFirstIsActive = votingList.stream()
-        .filter(voting -> "ACTIVE".equals(voting.getStatus()))
-        .findFirst();
+    var voteCountMap = new HashMap<Long, String>();
+    votingIdList.forEach(votingId -> {
+      var voteCountResponseList = getVoteUseCase.getVoteCount(votingId);
+      var json = gson.toJson(voteCountResponseList);
+      voteCountMap.put(votingId, json);
+    });
 
-    if(votingFindFirstIsActive.isEmpty()) {
-      return;
-    }
-
-    var votingId = votingFindFirstIsActive.get().getVotingId();
-
-    var count = getVoteUseCase.getVoteCount(votingId);
-
-    emitters.forEach(emitter -> {
+    votingEmitters.forEach(votingEmitter -> {
       try {
-        emitter.send(SseEmitter.event()
-            .name("SHOW_VOTE_RESULT_"+votingId)
-            .data(count+"\n\n"));
+        votingEmitter.getSseEmitter().send(SseEmitter.event()
+            .name("SHOW_VOTE_RESULT_"+votingEmitter.getVotingId())
+            .data(voteCountMap.get(votingEmitter.getVotingId())+"\n\n"));
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
