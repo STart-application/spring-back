@@ -16,7 +16,7 @@ public class JpaRoomEscape {
     @Column(name = "room_escape_id")
     private Long id;
 
-    @Column(name = "room_id")
+    @Column(name = "room_id", unique = true)
     private int roomId;
 
     @Column(name = "question_image_url")

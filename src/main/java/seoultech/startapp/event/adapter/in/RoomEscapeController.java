@@ -17,17 +17,15 @@ import seoultech.startapp.global.response.JsonResponse;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/room-escapes")
-@Slf4j
 class RoomEscapeController {
 
     private final RoomEscapeGetUseCase roomEscapeGetUseCase;
     private final UserEscapeGetUseCase userEscapeGetUseCase;
     private final UserEscapeRegisterUseCase userEscapeRegisterUseCase;
-
-
 
     /**
      * 방 문제를 조회하는 api
@@ -56,7 +54,7 @@ class RoomEscapeController {
      */
     @GetMapping("/history")
     public ResponseEntity<?> getUserRoomEscapeHistory(@LoginMember AuthMember member) {
-        int roomId = userEscapeGetUseCase.getRecentEscapeRoomId(member.getMemberId());
-        return JsonResponse.okWithData(HttpStatus.OK, "유저의 방 위치 조회를 성공했습니다.", new UserEscapeResponse(roomId));
+        UserEscapeResponse response = new UserEscapeResponse(userEscapeGetUseCase.getRecentEscapeRoomId(member.getMemberId()));
+        return JsonResponse.okWithData(HttpStatus.OK, "유저의 방 위치 조회를 성공했습니다.", response);
     }
 }

@@ -25,16 +25,16 @@ public class UserEscapeRegisterService implements UserEscapeRegisterUseCase {
     @Transactional
     public SuccessEscapeResponse checkUserAnswer(Long memberId, int roomId, String userAnswer) {
         int recentEscapeRoomId = userEscapeGetUseCase.getRecentEscapeRoomId(memberId);
-        RoomEscape roomEscape = loadRoomEscapePort.loadRoomEscapeByRoomId(roomId);
-        if (roomEscape.getRoomId()-1 != recentEscapeRoomId)
+        RoomEscape roomEscape = loadRoomEscapePort.loadByRoomId(roomId);
+        if (!roomEscape.isNextRoomId(recentEscapeRoomId)) {
             throw new InvalidInputException("요청 방 id는 올바르지 않은 요청입니다.");
-
-        if(roomEscape.getAnswer().equals(userAnswer)) {
-            UserEscape userEscape = new UserEscape(memberId, roomId);
-            saveUserEscapePort.saveUserEscape(userEscape);
-            return new SuccessEscapeResponse(true);
         }
-        else
+        if(roomEscape.isRightAnswer(userAnswer)) {
+            UserEscape userEscape = new UserEscape(memberId, roomEscape.getRoomId());
+            saveUserEscapePort.save(userEscape);
+            return new SuccessEscapeResponse(true);
+        } else {
             return new SuccessEscapeResponse(false);
+        }
     }
 }

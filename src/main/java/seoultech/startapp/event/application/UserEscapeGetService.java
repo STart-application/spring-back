@@ -20,7 +20,7 @@ public class UserEscapeGetService implements UserEscapeGetUseCase {
     @Override
     @Transactional(readOnly = true)
     public int getRecentEscapeRoomId(Long memberId) {
-        List<UserEscape> userEscapeList = loadUserEscapePort.loadUserEscapeListByStudentNo(memberId);
+        List<UserEscape> userEscapeList = loadUserEscapePort.loadListByMemberId(memberId);
         if (userEscapeList.isEmpty()) {
             return 0;
         } else {

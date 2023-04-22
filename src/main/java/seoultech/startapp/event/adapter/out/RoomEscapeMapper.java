@@ -11,7 +11,7 @@ public class RoomEscapeMapper {
     public RoomEscape mapToDomainRoomEscape(JpaRoomEscape jpaRoomEscape) {
         RoomEscape roomEscape = RoomEscape.builder()
                 .roomId(jpaRoomEscape.getRoomId())
-                .question(jpaRoomEscape.getQuestionImageUrl())
+                .questionImageUrl(jpaRoomEscape.getQuestionImageUrl())
                 .answer(jpaRoomEscape.getAnswer())
                 .build();
         return roomEscape;

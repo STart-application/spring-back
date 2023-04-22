@@ -19,7 +19,7 @@ public class RoomEscapeGetService implements RoomEscapeGetUseCase {
     @Override
     @Transactional(readOnly = true)
     public List<RoomQuestionResponse> getQuestionList() {
-        List<RoomEscape> roomEscapeList = loadRoomEscapePort.loadRoomEscapeAll();
+        List<RoomEscape> roomEscapeList = loadRoomEscapePort.loadAll();
         return RoomQuestionResponse.roomEscapeListToRoomQuestionResponseList(roomEscapeList);
     }
 }

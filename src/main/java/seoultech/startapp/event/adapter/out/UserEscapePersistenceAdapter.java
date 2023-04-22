@@ -6,9 +6,7 @@ import org.springframework.stereotype.Component;
 import seoultech.startapp.event.application.port.out.LoadUserEscapePort;
 import seoultech.startapp.event.application.port.out.SaveUserEscapePort;
 import seoultech.startapp.event.domain.UserEscape;
-
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -19,13 +17,13 @@ public class UserEscapePersistenceAdapter implements LoadUserEscapePort, SaveUse
     private final UserEscapeMapper mapper;
 
     @Override
-    public List<UserEscape> loadUserEscapeListByStudentNo(Long memberId) {
+    public List<UserEscape> loadListByMemberId(Long memberId) {
         List<JpaUserEscape> jpaUserEscapeList = jpaUserEscapeRepository.findAllByMemberId(memberId);
         return mapper.mapToDomainUserEscapeList(jpaUserEscapeList);
     }
 
     @Override
-    public void saveUserEscape(UserEscape userEscape) {
+    public void save(UserEscape userEscape) {
         JpaUserEscape jpaUserEscape = mapper.mapToJpaUserEscape(userEscape);
         jpaUserEscapeRepository.save(jpaUserEscape);
     }

@@ -1,14 +1,12 @@
 package seoultech.startapp.event.adapter.in;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RoomAnswerRequest {
 
-    private int roomId;
+    private final int roomId;
 
-    private String answer;
+    private final String answer;
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LoadRoomEscapePort {
 
-    List<RoomEscape> loadRoomEscapeAll();
+    List<RoomEscape> loadAll();
 
-    RoomEscape loadRoomEscapeByRoomId(int roomId);
+    RoomEscape loadByRoomId(int roomId);
 }

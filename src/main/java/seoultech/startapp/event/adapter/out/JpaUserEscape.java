@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "user_escape")
+@Table(indexes = {@Index(name = "user_escape_idx", columnList = "member_id")})
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
