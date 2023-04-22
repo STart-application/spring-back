@@ -17,7 +17,6 @@ public class TruckResponse implements Serializable {
 
   private String truckDescription;
 
-  private String truckImageUrl;
   private String truckLocation;
 
 
@@ -27,7 +26,6 @@ public class TruckResponse implements Serializable {
     this.truckId = truckId;
     this.truckName = truckName;
     this.truckDescription = truckDescription;
-    this.truckImageUrl = truckImageUrl;
     this.truckLocation = truckLocation;
   }
 
@@ -36,7 +34,6 @@ public class TruckResponse implements Serializable {
         .truckId(truck.getTruckId())
         .truckName(truck.getTruckName())
         .truckDescription(truck.getTruckDescription())
-        .truckImageUrl(truck.getTruckImageUrl())
         .truckLocation(truck.getTruckLocation())
         .build();
   }

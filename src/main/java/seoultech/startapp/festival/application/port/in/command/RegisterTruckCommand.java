@@ -18,20 +18,16 @@ public class RegisterTruckCommand extends SelfValidator<RegisterTruckCommand> {
 
   @NotBlank
   private String truckName;
-
   @Nullable
   private String truckDescription;
 
-  @Nullable
-  private String truckImageUrl;
   @NotBlank
   private String truckLocation;
 
   @Builder
-  public RegisterTruckCommand(String truckName, String truckDescription, String truckImageUrl, String truckLocation) {
+  public RegisterTruckCommand(String truckName, String truckDescription, String truckLocation) {
     this.truckName = truckName;
     this.truckDescription = truckDescription;
-    this.truckImageUrl = truckImageUrl;
     this.truckLocation = truckLocation;
     validateSelf();
   }
@@ -40,7 +36,6 @@ public class RegisterTruckCommand extends SelfValidator<RegisterTruckCommand> {
     return Truck.builder()
             .truckName(truckName)
             .truckDescription(truckDescription)
-            .truckImageUrl(truckImageUrl)
             .truckLocation(truckLocation)
             .build();
   }

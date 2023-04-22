@@ -11,11 +11,7 @@ public class Truck {
 
   private String truckName;
 
-  @Nullable
   private String truckDescription;
-
-  @Nullable
-  private String truckImageUrl;
 
   private String truckLocation;
 
@@ -24,7 +20,6 @@ public class Truck {
     this.truckId = truckId;
     this.truckName = truckName;
     this.truckDescription = truckDescription;
-    this.truckImageUrl = truckImageUrl;
     this.truckLocation = truckLocation;
   }
 }
