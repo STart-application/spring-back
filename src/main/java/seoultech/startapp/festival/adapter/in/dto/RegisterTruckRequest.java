@@ -10,7 +10,6 @@ public record RegisterTruckRequest(String truckName, String truckDescription, St
     return RegisterTruckCommand.builder()
             .truckName(truckName)
             .truckDescription(truckDescription)
-            .truckImageUrl(truckImageUrl)
             .truckLocation(truckLocation)
             .build();
   }

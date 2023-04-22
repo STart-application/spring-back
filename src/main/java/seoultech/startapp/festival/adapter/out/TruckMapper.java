@@ -11,7 +11,6 @@ public class TruckMapper {
                 .truckId(jpaTruck.getId())
                 .truckName(jpaTruck.getTruckName())
                 .truckDescription(jpaTruck.getTruckDescription())
-                .truckImageUrl(jpaTruck.getTruckImageUrl())
                 .truckLocation(jpaTruck.getTruckLocation())
                 .build();
     }
