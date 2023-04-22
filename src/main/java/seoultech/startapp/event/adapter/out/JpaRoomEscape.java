@@ -16,46 +16,21 @@ public class JpaRoomEscape {
     @Column(name = "room_escape_id")
     private Long id;
 
-    @Column(name = "member_id", unique = true)
-    private Long memberId;
+    @Column(name = "room_id")
+    private int roomId;
 
-    @Column(nullable = false)
-//    @Convert(converter = BooleanToYNConverter.class)
-    private Boolean oneEscape;
+    @Column(name = "question_image_url")
+    private String questionImageUrl;
 
-    @Column(nullable = false)
-    private Boolean twoEscape;
+    @Column
+    private String answer;
 
-    @Column(nullable = false)
-    private Boolean threeEscape;
 
-    @Column(nullable = false)
-    private Boolean fourEscape;
-
-    @Column(nullable = false)
-    private Boolean fiveEscape;
-
-    @Column(nullable = false)
-    private Boolean sixEscape;
-
-    @Column(nullable = false)
-    private Boolean sevenEscape;
-
-    @Column(nullable = false)
-    private Boolean eightEscape;
-
-    @Builder
-    public JpaRoomEscape(Long id, Long memberId, Boolean oneEscape, Boolean twoEscape, Boolean threeEscape,
-                         Boolean fourEscape, Boolean fiveEscape, Boolean sixEscape, Boolean sevenEscape, Boolean eightEscape) {
-        this.id = id;
-        this.memberId = memberId;
-        this.oneEscape = oneEscape;
-        this.twoEscape = twoEscape;
-        this.threeEscape = threeEscape;
-        this.fourEscape = fourEscape;
-        this.fiveEscape = fiveEscape;
-        this.sixEscape = sixEscape;
-        this.sevenEscape = sevenEscape;
-        this.eightEscape = eightEscape;
-    }
+//    @Builder
+//    public JpaRoomEscape(int id, String questionImageUrl String answer) {
+//        this.id = id;
+//        this.questionImageUrl = question;
+//        this.answer = answer;
+//
+//    }
 }
