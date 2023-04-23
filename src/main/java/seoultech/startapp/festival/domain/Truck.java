@@ -16,10 +16,10 @@ public class Truck {
   private String truckLocation;
 
   @Builder
-  public Truck(int truckId, String truckName, String truckDescription, String truckImageUrl, String truckLocation) {
+  public Truck(int truckId, String truckName, String truckDescription, String truckLocation) {
     this.truckId = truckId;
     this.truckName = truckName;
     this.truckDescription = truckDescription;
     this.truckLocation = truckLocation;
   }
-}
+
