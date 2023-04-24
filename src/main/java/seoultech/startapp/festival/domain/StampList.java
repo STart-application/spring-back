@@ -1,11 +1,11 @@
 package seoultech.startapp.festival.domain;
 
 public enum StampList {
-  EXHIBITION("exhibition"),
-  GROUND("ground"),
-  FLEAMARKET("fleamarket"),
+  GAME("game"),
+  YARD("yard"),
+  STAGE("stage"),
   BUNGEOBANG("bungeobang"),
-  SANGSANG("sangsang"),
+  PHOTO("photo"),
   PRIZED("prized");
 
   private final String stamp;

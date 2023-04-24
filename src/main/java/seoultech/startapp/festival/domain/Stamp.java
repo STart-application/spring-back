@@ -11,33 +11,33 @@ public class Stamp {
 
   private Long stampId;
   private Long memberId;
-  private Boolean exhibition;
-  private Boolean ground;
-  private Boolean fleamarket;
+  private Boolean game;
+  private Boolean yard;
+  private Boolean stage;
   private Boolean bungeobang;
-  private Boolean sangsang;
+  private Boolean photo;
   private Boolean isPrized;
 
   @Builder
-  public Stamp(Long stampId, Long memberId, Boolean exhibition, Boolean ground,
-      Boolean fleamarket, Boolean bungeobang, Boolean sangsang, Boolean isPrized) {
+  public Stamp(Long stampId, Long memberId, Boolean game, Boolean yard,
+      Boolean stage, Boolean bungeobang, Boolean photo, Boolean isPrized) {
     this.stampId = stampId;
     this.memberId = memberId;
-    this.exhibition = exhibition;
-    this.ground = ground;
-    this.fleamarket = fleamarket;
+    this.game = game;
+    this.yard = yard;
+    this.stage = stage;
     this.bungeobang = bungeobang;
-    this.sangsang = sangsang;
+    this.photo = photo;
     this.isPrized = isPrized;
   }
 
   public void addStamp(StampList target) {
     switch (target) {
-      case EXHIBITION -> setExhibition(true);
-      case GROUND -> setGround(true);
-      case FLEAMARKET -> setFleamarket(true);
+      case GAME -> setGame(true);
+      case YARD -> setYard(true);
+      case STAGE -> setStage(true);
       case BUNGEOBANG -> setBungeobang(true);
-      case SANGSANG -> setSangsang(true);
+      case PHOTO -> setPhoto(true);
       case PRIZED -> setPrized(true);
     }
   }
@@ -52,21 +52,21 @@ public class Stamp {
   public static Stamp initStamp(Long memberId) {
     return Stamp.builder()
         .memberId(memberId)
-        .exhibition(false)
-        .fleamarket(false)
-        .ground(false)
+        .game(false)
+        .stage(false)
+        .yard(false)
         .bungeobang(false)
-        .sangsang(false)
+        .photo(false)
         .isPrized(false)
         .build();
   }
 
   public void validationPrizedStamp() {
-    validationRequireStamp(this.exhibition);
-    validationRequireStamp(this.ground);
-    validationRequireStamp(this.fleamarket);
+    validationRequireStamp(this.game);
+    validationRequireStamp(this.yard);
+    validationRequireStamp(this.stage);
     validationRequireStamp(this.bungeobang);
-    validationRequireStamp(this.sangsang);
+    validationRequireStamp(this.photo);
   }
 
   private void validationRequireStamp(Boolean target) {
@@ -81,19 +81,19 @@ public class Stamp {
     }
   }
 
-  private void setExhibition(Boolean exhibition) {
-    validationAlreadyStamp(this.exhibition);
-    this.exhibition = exhibition;
+  private void setGame(Boolean game) {
+    validationAlreadyStamp(this.game);
+    this.game = game;
   }
 
-  private void setGround(Boolean ground) {
-    validationAlreadyStamp(this.ground);
-    this.ground = ground;
+  private void setYard(Boolean yard) {
+    validationAlreadyStamp(this.yard);
+    this.yard = yard;
   }
 
-  private void setFleamarket(Boolean fleamarket) {
-    validationAlreadyStamp(this.fleamarket);
-    this.fleamarket = fleamarket;
+  private void setStage(Boolean stage) {
+    validationAlreadyStamp(this.stage);
+    this.stage = stage;
   }
 
   private void setBungeobang(Boolean bungeobang) {
@@ -101,8 +101,8 @@ public class Stamp {
     this.bungeobang = bungeobang;
   }
 
-  private void setSangsang(Boolean sangsang) {
-    validationAlreadyStamp(this.sangsang);
-    this.sangsang = sangsang;
+  private void setPhoto(Boolean photo) {
+    validationAlreadyStamp(this.photo);
+    this.photo = photo;
   }
 }
