@@ -24,6 +24,6 @@ public class JpaUserEscape {
     @Column(name = "room_id")
     private int roomId;
 
-    @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "create_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)
     private LocalDateTime createDate;
 }
