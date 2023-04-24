@@ -54,7 +54,7 @@ public class SseEmitters {
       try {
         votingEmitter.getSseEmitter().send(SseEmitter.event()
             .name("SHOW_VOTE_RESULT_"+votingEmitter.getVotingId())
-            .data(voteCountMap.get(votingEmitter.getVotingId())+"\n\n"));
+            .data(voteCountMap.get(votingEmitter.getVotingId())));
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
