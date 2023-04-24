@@ -26,7 +26,7 @@ class FestivalTimeCheckerTest {
   @Test
   @DisplayName("현재 시간이 축제 이후면 isStart가 true 리턴")
   public void festival_isStart_after() throws Exception {
-    LocalDateTime afterTime = LocalDateTime.of(2022,9,21,10,0);
+    LocalDateTime afterTime = LocalDateTime.of(2023,5,10,9,0);
     boolean result = festivalTimeChecker.isStart(afterTime);
     assertTrue(result);
   }

@@ -3,6 +3,7 @@ package seoultech.startapp.event.adapter.out;
 import org.springframework.stereotype.Component;
 import seoultech.startapp.event.domain.UserEscape;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class UserEscapeMapper {
                 .id(null)
                 .memberId(userEscape.getMemberId())
                 .roomId(userEscape.getRoomId())
+                .createDate(LocalDateTime.now())
                 .build();
     }
 

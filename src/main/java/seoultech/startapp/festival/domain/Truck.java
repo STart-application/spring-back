@@ -2,7 +2,6 @@ package seoultech.startapp.festival.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.jetbrains.annotations.Nullable;
 
 @Getter
 public class Truck {
@@ -22,4 +21,4 @@ public class Truck {
     this.truckDescription = truckDescription;
     this.truckLocation = truckLocation;
   }
-
+}

@@ -7,6 +7,7 @@ import seoultech.startapp.event.application.port.out.LoadUserEscapePort;
 import seoultech.startapp.event.application.port.out.SaveUserEscapePort;
 import seoultech.startapp.event.domain.UserEscape;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -25,6 +26,7 @@ public class UserEscapePersistenceAdapter implements LoadUserEscapePort, SaveUse
     @Override
     public void save(UserEscape userEscape) {
         JpaUserEscape jpaUserEscape = mapper.mapToJpaUserEscape(userEscape);
+
         jpaUserEscapeRepository.save(jpaUserEscape);
     }
 }
