@@ -20,9 +20,9 @@ public class FestivalTimeCheckService implements FestivalTimeCheckUseCase {
 
   @Override
   public void check() {
+    log.info("profile ={}", profile);
     if(!festivalTimeChecker.isStart(LocalDateTime.now())){
       // 시작 시간이 아니면
-      log.info("profile ={}", profile);
       throw new NotStartFestivalException("축제 시작 시간이 아닙니다.");
     }
   }
