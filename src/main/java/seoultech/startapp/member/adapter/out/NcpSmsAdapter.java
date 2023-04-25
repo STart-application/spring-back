@@ -2,23 +2,10 @@ package seoultech.startapp.member.adapter.out;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-import seoultech.startapp.global.exception.BusinessException;
-import seoultech.startapp.global.exception.ErrorType;
-import seoultech.startapp.global.property.NcpSmsProperty;
+import seoultech.startapp.global.common.NcpApiAdapter;
 import seoultech.startapp.member.application.port.out.SmsPushPort;
 
 @Component
@@ -26,73 +13,85 @@ import seoultech.startapp.member.application.port.out.SmsPushPort;
 @Slf4j
 public class NcpSmsAdapter implements SmsPushPort {
 
-  private final RestTemplate restTemplate;
-  private final NcpSmsProperty smsProperty;
+  private final NcpApiAdapter ncpApiAdapter;
+  private final String KAKAO_CHANNEL_NAME = "@서울과학기술대학교_총학생회";
 
   @Override
-  public void push(String phoneNo, String randomString) {
-    final String NPC_HOST = "https://sens.apigw.ntruss.com";
-    final String NPC_URL = "/sms/v2/services/" + smsProperty.getServiceId() + "/messages";
-    final String REQUEST_URL = NPC_HOST + NPC_URL;
-    try {
-      String timeStamp = Long.toString(System.currentTimeMillis());
-      HttpHeaders headers = new HttpHeaders();
-      headers.set("Content-Type", "application/json; charset=utf-8");
-      headers.set("x-ncp-apigw-timestamp", timeStamp);
-      headers.set("x-ncp-iam-access-key", smsProperty.getAccessKey());
-      headers.set("x-ncp-apigw-signature-v2", makeSignature(NPC_URL, timeStamp));
+  public void pushSmsCode(String phoneNo, String randomString) {
+    //init
+    JsonObject body = new JsonObject();
+    JsonArray messagesArray = new JsonArray();
+    JsonObject messageDetail = new JsonObject();
 
-      JsonObject body = new JsonObject();
-      JsonArray messagesArray = new JsonArray();
-      JsonObject messages = new JsonObject();
+    // phone No remove "-"
+    String replacePhoneNo = phoneNo.replaceAll("[^0-9]", "");
 
-      String replaceNo = phoneNo.replaceAll("[^0-9]", "");
-      messages.addProperty("to", replaceNo);
-      messagesArray.add(messages);
+    // setting id and code
+    body.addProperty("plusFriendId", KAKAO_CHANNEL_NAME);
+    body.addProperty("templateCode", "stAuthCode");
 
-      body.addProperty("type", "SMS");
-      body.addProperty("from", smsProperty.getSenderNo());
-      body.addProperty("content",
-          "[서울과학기술대학교 총학생회] 인증번호는 " + randomString + "" + " 입니다. 정확히 입력해 주세요.");
-      body.add("messages", messagesArray);
+    // to => receiver
+    messageDetail.addProperty("to", replacePhoneNo);
+    // content = template content
+    messageDetail.addProperty("content",
+        "[서울과학기술대학교 총학생회]인증번호는 " + randomString + " 입니다. 정확히 입력해주세요.");
+    messagesArray.add(messageDetail);
 
-      HttpEntity<String> httpEntity = new HttpEntity<>(
-          body.toString(), headers);
+    body.add("messages", messagesArray);
 
-      ResponseEntity<String> response = restTemplate.postForEntity(REQUEST_URL,
-          httpEntity, String.class);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw new BusinessException(ErrorType.INTERNAL_SERVER_ERROR, "SMS PUSH 실패");
-    }
+    ncpApiAdapter.pushAlimTalk(body);
   }
 
-  public String makeSignature(String url, String timeStamp)
-      throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-    String space = " ";          // one space
-    String newLine = "\n";          // new line
-    String method = "POST";          // method
-    String accessKey = smsProperty.getAccessKey();      // access key id (from portal or Sub Account)
-    String secretKey = smsProperty.getSecretKey();
+  @Override
+  public void pushApprove(String phoneNo) {
+    //init
+    JsonObject body = new JsonObject();
+    JsonArray messagesArray = new JsonArray();
+    JsonObject messageDetail = new JsonObject();
 
-    String message = new StringBuilder()
-        .append(method)
-        .append(space)
-        .append(url)
-        .append(newLine)
-        .append(timeStamp)
-        .append(newLine)
-        .append(accessKey)
-        .toString();
+    // phone No remove "-"
+    String replacePhoneNo = phoneNo.replaceAll("[^0-9]", "");
 
-    SecretKeySpec signingKey = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8),
-        "HmacSHA256");
-    Mac mac = Mac.getInstance("HmacSHA256");
-    mac.init(signingKey);
+    // setting id and code
+    body.addProperty("plusFriendId", KAKAO_CHANNEL_NAME);
+    body.addProperty("templateCode", "stApprove");
 
-    byte[] rawHmac = mac.doFinal(message.getBytes(StandardCharsets.UTF_8));
+    // to => receiver
+    messageDetail.addProperty("to", replacePhoneNo);
+    // content = template content
+    messageDetail.addProperty("content",
+        "[서울과학기술대학교 총학생회] 학생증 본인인증심사가 승인되었습니다.");
+    messagesArray.add(messageDetail);
 
-    return Base64.encodeBase64String(rawHmac);
+    body.add("messages", messagesArray);
+    ncpApiAdapter.pushAlimTalk(body);
   }
+
+  @Override
+  public void pushReject(String phoneNo) {
+    //init
+    JsonObject body = new JsonObject();
+    JsonArray messagesArray = new JsonArray();
+    JsonObject messageDetail = new JsonObject();
+
+    // phone No remove "-"
+    String replacePhoneNo = phoneNo.replaceAll("[^0-9]", "");
+
+    // setting id and code
+    body.addProperty("plusFriendId", KAKAO_CHANNEL_NAME);
+    body.addProperty("templateCode", "stReject");
+
+    // to => receiver
+    messageDetail.addProperty("to", replacePhoneNo);
+    // content = template content
+    messageDetail.addProperty("content",
+        "[서울과학기술대학교 총학생회] 학생증 본인인증심사가 거절되었습니다. "
+            + "입력한 정보와 학생증의 정보가 일치한지 확인해주세요.");
+    messagesArray.add(messageDetail);
+
+    body.add("messages", messagesArray);
+    ncpApiAdapter.pushAlimTalk(body);
+  }
+
 
 }

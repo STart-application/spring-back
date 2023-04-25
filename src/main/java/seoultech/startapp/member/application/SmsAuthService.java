@@ -47,7 +47,7 @@ public class SmsAuthService implements SmsAuthUseCase {
     String code = randomNumberToString();
     SmsAuth smsAuth = command.toEntity(code);
     saveSmsAuthPort.save(smsAuth);
-    smsPushPort.push(phoneNo, code);
+    smsPushPort.pushSmsCode(phoneNo, code);
   }
 
   @Transactional
@@ -67,21 +67,25 @@ public class SmsAuthService implements SmsAuthUseCase {
         .smsTime(LocalDateTime.now())
         .build();
     saveSmsAuthPort.save(smsAuth);
-    smsPushPort.push(phoneNo, code);
+    smsPushPort.pushSmsCode(phoneNo, code);
   }
 
   @Transactional
   @Override
   public void findPasswordCheck(FindPasswordCheckCommand command) {
     Member member = loadMemberPort.loadByStudentNo(command.getStudentNo());
-    SmsAuth smsAuth = loadSmsAuthPort.loadByPhoneNoAndCode(member.getProfile().getPhoneNo(),
-        command.getCode());
 
-    if (smsAuth == null) {
+    SmsAuth auth = loadSmsAuthPort.loadLastAuthByPhoneNo(member.getProfile().getPhoneNo());
+
+    if (auth == null) {
       throw new NotMatchPhoneAuthException("인증 정보가 일치하지 않습니다.");
     }
 
-    smsAuth.validTime(LocalDateTime.now());
+    if(!auth.getAuthCode().equals(command.getCode())){
+      throw new NotMatchPhoneAuthException("인증 정보가 일치하지 않습니다.");
+    }
+
+    auth.validTime(LocalDateTime.now());
     redisCachePort.setStringWithTTL("PASSWORD-" + command.getStudentNo(), command.getCode(), 5,
         TimeUnit.MINUTES);
   }
@@ -91,12 +95,17 @@ public class SmsAuthService implements SmsAuthUseCase {
   public void check(SmsCheckCommand command) {
     String phoneNo = command.getPhoneNo();
     String code = command.getCode();
-    SmsAuth smsAuth = loadSmsAuthPort.loadByPhoneNoAndCode(phoneNo, code);
-    if (smsAuth == null) {
+    SmsAuth auth = loadSmsAuthPort.loadLastAuthByPhoneNo(command.getPhoneNo());
+
+    if (auth == null) {
       throw new NotMatchPhoneAuthException("인증 정보가 일치하지 않습니다.");
     }
 
-    smsAuth.validTime(LocalDateTime.now());
+    if (!auth.getAuthCode().equals(command.getCode())){
+      throw new NotMatchPhoneAuthException("인증 정보가 일치하지 않습니다.");
+    }
+
+    auth.validTime(LocalDateTime.now());
 
     redisCachePort.setStringWithTTL("PHONE-" + phoneNo, code, 5, TimeUnit.MINUTES);
   }
