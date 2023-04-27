@@ -41,6 +41,10 @@ public class SseEmitters {
   }
 
   public void count() {
+    if(votingEmitters.isEmpty()) {
+      return;
+    }
+
     var votingIdList = votingEmitters.stream().map(VotingSseEmitter::getVotingId).distinct().toList();
 
     var voteCountMap = new HashMap<Long, String>();
@@ -55,8 +59,8 @@ public class SseEmitters {
         votingEmitter.getSseEmitter().send(SseEmitter.event()
             .name("SHOW_VOTE_RESULT_"+votingEmitter.getVotingId())
             .data(voteCountMap.get(votingEmitter.getVotingId())));
-      } catch (IOException e) {
-        throw new RuntimeException(e);
+      } catch (IllegalStateException | IOException e) {
+        log.error("error: {}", e.getMessage(), e);
       }
     });
   }
