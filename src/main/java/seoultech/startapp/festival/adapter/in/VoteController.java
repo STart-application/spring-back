@@ -65,7 +65,7 @@ public class VoteController {
   }
 
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public SseEmitter connect(@PathVariable Long votingId, @LoginMember AuthMember member) {
+  public ResponseEntity<SseEmitter> connect(@PathVariable Long votingId, @LoginMember AuthMember member) {
     if(!getVoterUseCase.isVoted(votingId, member.getMemberId())){
       throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
     }
@@ -76,10 +76,10 @@ public class VoteController {
     try {
       emitter.send(SseEmitter.event()
           .name("SHOW_VOTE_RESULT_" + votingId)
-          .data("connected!\n\n"));
+          .data("connected!"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return emitter;
+    return ResponseEntity.ok(emitter);
   }
 }
