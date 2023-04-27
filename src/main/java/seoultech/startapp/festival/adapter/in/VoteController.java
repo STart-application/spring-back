@@ -76,7 +76,7 @@ public class VoteController {
     try {
       emitter.send(SseEmitter.event()
           .name("SHOW_VOTE_RESULT_" + votingId)
-          .data("connected!"));
+          .data("connected!\n\n"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
