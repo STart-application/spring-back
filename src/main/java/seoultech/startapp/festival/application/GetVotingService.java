@@ -39,7 +39,7 @@ public class GetVotingService implements GetVoteUseCase {
   public VoteSummary getVoteSummary(Long votingId, Long memberId) {
     var voting = loadVotingPort.loadById(votingId);
     var voter = loadVoterPort.loadByMemberIdAndVotingId(memberId, votingId);
-    return VoteSummary.from(voting, Optional.of(voter));
+    return VoteSummary.from(voting, Optional.ofNullable(voter));
   }
 
   @Override
