@@ -58,7 +58,7 @@ public class SseEmitters {
       try {
         votingEmitter.getSseEmitter().send(SseEmitter.event()
             .name("SHOW_VOTE_RESULT_"+votingEmitter.getVotingId())
-            .data(voteCountMap.get(votingEmitter.getVotingId())));
+            .data(voteCountMap.get(votingEmitter.getVotingId())+"\n\n"));
       } catch (IllegalStateException | IOException e) {
         log.error("error: {}", e.getMessage(), e);
       }
