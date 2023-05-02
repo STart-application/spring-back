@@ -26,7 +26,10 @@ public class RoomEscape {
     }
 
     public Boolean isRightAnswer(String userAnswer) {
-        if (this.answer.equals(userAnswer)) {
+        String finalUserAnswer = userAnswer.toUpperCase().replaceAll(" ", "");
+        System.out.println("finalUserAnswer = " + finalUserAnswer);
+        System.out.println("this.answer = " + this.answer);
+        if (this.answer.equals(finalUserAnswer)) {
             return true;
         } else {
             return false;
