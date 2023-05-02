@@ -12,6 +12,6 @@ public class GetVoterService implements GetVoterUseCase {
   private final LoadVoterPort loadVoterPort;
   @Override
   public boolean isVoted(Long votingId, Long memberId) {
-    return loadVoterPort.loadByMemberIdAndVotingId(votingId, memberId) != null;
+    return loadVoterPort.loadByMemberIdAndVotingId(memberId, votingId) != null;
   }
 }

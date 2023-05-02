@@ -1,6 +1,7 @@
 package seoultech.startapp.festival.adapter.in;
 
 import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -65,7 +66,8 @@ public class VoteController {
   }
 
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public SseEmitter connect(@PathVariable Long votingId, @LoginMember AuthMember member) {
+  public ResponseEntity<SseEmitter> connect(@PathVariable Long votingId, @LoginMember AuthMember member, HttpServletResponse response) {
+    response.setHeader("X-Accel-Buffering", "no");
     if(!getVoterUseCase.isVoted(votingId, member.getMemberId())){
       throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
     }
@@ -80,6 +82,6 @@ public class VoteController {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return emitter;
+    return ResponseEntity.ok(emitter);
   }
 }

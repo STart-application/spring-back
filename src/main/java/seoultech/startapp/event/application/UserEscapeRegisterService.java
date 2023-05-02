@@ -29,7 +29,7 @@ public class UserEscapeRegisterService implements UserEscapeRegisterUseCase {
         if (!roomEscape.isNextRoomId(recentEscapeRoomId)) {
             throw new InvalidInputException("요청 방 id는 올바르지 않은 요청입니다.");
         }
-        if(roomEscape.isRightAnswer(userAnswer.toUpperCase())) {
+        if(roomEscape.isRightAnswer(userAnswer)) {
             UserEscape userEscape = new UserEscape(memberId, roomEscape.getRoomId());
             saveUserEscapePort.save(userEscape);
             return new SuccessEscapeResponse(true);
