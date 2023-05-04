@@ -1,6 +1,6 @@
 package seoultech.startapp.festival.adapter.in;
 
-import java.io.IOException;
+import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,12 +17,10 @@ import seoultech.startapp.festival.adapter.in.dto.RegisterVoterRequest;
 import seoultech.startapp.festival.application.port.in.GetVoteUseCase;
 import seoultech.startapp.festival.application.port.in.GetVoterUseCase;
 import seoultech.startapp.festival.application.port.in.RegisterVoterUseCase;
-import seoultech.startapp.festival.exception.NotVotedException;
 import seoultech.startapp.global.common.SseEmitters;
 import seoultech.startapp.global.config.web.AuthMember;
 import seoultech.startapp.global.config.web.LoginMember;
 import seoultech.startapp.global.response.JsonResponse;
-import seoultech.startapp.member.domain.MemberRole;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,9 +34,11 @@ public class VoteController {
 
   private final SseEmitters sseEmitters;
   @GetMapping("")
-  public ResponseEntity<?> getVoteList(@LoginMember AuthMember member) {
+  public ResponseEntity<?> getVoteList() {
+    var random = new Random();
+    var randomLong = random.nextLong();
 
-    var result = getVoteUseCase.getVoteSummaryList(member.getMemberId());
+    var result = getVoteUseCase.getVoteSummaryList(randomLong);
     return JsonResponse.okWithData(HttpStatus.OK, "투표 전체 조회", result);
   }
 
@@ -49,9 +49,11 @@ public class VoteController {
   }
 
   @PostMapping("")
-  public ResponseEntity<?> vote(@RequestBody RegisterVoterRequest voterRequest, @LoginMember AuthMember member) {
+  public ResponseEntity<?> vote(@RequestBody RegisterVoterRequest voterRequest) {
+    var random = new Random();
+    var randomLong = random.nextLong();
 
-    registerVoterUseCase.registerVoter(voterRequest.toCommand(member.getMemberId()));
+    registerVoterUseCase.registerVoter(voterRequest.toCommand(randomLong));
     return JsonResponse.ok(HttpStatus.CREATED, "투표 성공");
   }
 
@@ -62,22 +64,12 @@ public class VoteController {
   }
 
   @GetMapping(value = "/connect/{votingId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public ResponseEntity<SseEmitter> connect(@PathVariable Long votingId, @LoginMember AuthMember member, HttpServletResponse response) {
+  public ResponseEntity<SseEmitter> connect(@PathVariable Long votingId, HttpServletResponse response) {
     response.setHeader("X-Accel-Buffering", "no");
-    if(!getVoterUseCase.isVoted(votingId, member.getMemberId())){
-      throw new NotVotedException("투표를 해야 조회할 수 있습니다.");
-    }
-
+    response.setHeader("connection", "close");
     SseEmitter emitter = new SseEmitter(60 * 1000L);
     sseEmitters.add(votingId, emitter);
 
-    try {
-      emitter.send(SseEmitter.event()
-          .name("SHOW_VOTE_RESULT_" + votingId)
-          .data("connected!"));
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
     return ResponseEntity.ok(emitter);
   }
 }
