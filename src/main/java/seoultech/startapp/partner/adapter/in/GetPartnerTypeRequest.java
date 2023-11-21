@@ -10,12 +10,12 @@ import seoultech.startapp.partner.domain.PartnerType;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class GetPartnerCategoryRequest {
+public class GetPartnerTypeRequest {
 
 	private List<PartnerType> partnerTypeList;
 
-	public static GetPartnerCategoryRequest of(List<PartnerType> partnerTypes) {
-		return GetPartnerCategoryRequest.builder()
+	public static GetPartnerTypeRequest of(List<PartnerType> partnerTypes) {
+		return GetPartnerTypeRequest.builder()
 				.partnerTypeList(partnerTypes)
 				.build();
 	}
