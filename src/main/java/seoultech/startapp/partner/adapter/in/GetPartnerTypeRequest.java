@@ -5,18 +5,18 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import seoultech.startapp.partner.domain.PartnerType;
+import seoultech.startapp.partner.application.PartnerTypeInfoResponse;
 
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class GetPartnerTypeRequest {
 
-	private List<PartnerType> partnerTypeList;
+	private List<PartnerTypeInfoResponse> partnerTypeList;
 
-	public static GetPartnerTypeRequest of(List<PartnerType> partnerTypes) {
+	public static GetPartnerTypeRequest of(List<PartnerTypeInfoResponse> partnerTypeInfoResponses) {
 		return GetPartnerTypeRequest.builder()
-				.partnerTypeList(partnerTypes)
+				.partnerTypeList(partnerTypeInfoResponses)
 				.build();
 	}
 }

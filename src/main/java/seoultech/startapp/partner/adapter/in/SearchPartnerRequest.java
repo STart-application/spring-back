@@ -5,18 +5,18 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import seoultech.startapp.partner.domain.Partner;
+import seoultech.startapp.partner.application.PartnerInfoResponse;
 
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SearchPartnerRequest {
 
-	private List<Partner> partnerList;
+	private List<PartnerInfoResponse> partnerList;
 
-	public static SearchPartnerRequest of(List<Partner> partners) {
+	public static SearchPartnerRequest of(List<PartnerInfoResponse> partnerInfoResponses) {
 		return SearchPartnerRequest.builder()
-				.partnerList(partners)
+				.partnerList(partnerInfoResponses)
 				.build();
 	}
 }
