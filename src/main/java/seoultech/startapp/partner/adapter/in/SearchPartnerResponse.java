@@ -10,12 +10,12 @@ import seoultech.startapp.partner.application.PartnerInfoResponse;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class SearchPartnerRequest {
+public class SearchPartnerResponse {
 
 	private List<PartnerInfoResponse> partnerList;
 
-	public static SearchPartnerRequest of(List<PartnerInfoResponse> partnerInfoResponses) {
-		return SearchPartnerRequest.builder()
+	public static SearchPartnerResponse of(List<PartnerInfoResponse> partnerInfoResponses) {
+		return SearchPartnerResponse.builder()
 				.partnerList(partnerInfoResponses)
 				.build();
 	}

@@ -21,19 +21,19 @@ public class PartnerController {
 
 	@GetMapping("/search")
 	public ResponseEntity<?> search(
-			@RequestParam("keyword") String keyword,
-			@RequestParam("categoryId") Long categoryId,
+			@RequestParam(name = "keyword", required = false) String keyword,
+			@RequestParam(name = "categoryId", required = false) Long categoryId,
 			@RequestParam("page") int page,
 			@RequestParam("count") int count
 	) {
-		SearchPartnerRequest response = SearchPartnerRequest.of(
+		SearchPartnerResponse response = SearchPartnerResponse.of(
 				searchPartnerUseCase.searchPartner(keyword, categoryId, page, count));
 		return JsonResponse.okWithData(HttpStatus.OK, "조회 성공", response);
 	}
 
 	@GetMapping("/category")
 	public ResponseEntity<?> getPartnerCategory() {
-		GetPartnerTypeRequest response = GetPartnerTypeRequest.of(
+		GetPartnerTypeResponse response = GetPartnerTypeResponse.of(
 				getPartnerTypeUseCase.getPartnerType());
 		return JsonResponse.okWithData(HttpStatus.OK, "조회 성공", response);
 	}

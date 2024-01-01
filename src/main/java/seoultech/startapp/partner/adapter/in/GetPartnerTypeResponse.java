@@ -10,12 +10,12 @@ import seoultech.startapp.partner.application.PartnerTypeInfoResponse;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class GetPartnerTypeRequest {
+public class GetPartnerTypeResponse {
 
 	private List<PartnerTypeInfoResponse> partnerTypeList;
 
-	public static GetPartnerTypeRequest of(List<PartnerTypeInfoResponse> partnerTypeInfoResponses) {
-		return GetPartnerTypeRequest.builder()
+	public static GetPartnerTypeResponse of(List<PartnerTypeInfoResponse> partnerTypeInfoResponses) {
+		return GetPartnerTypeResponse.builder()
 				.partnerTypeList(partnerTypeInfoResponses)
 				.build();
 	}
